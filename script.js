@@ -1,8 +1,11 @@
 let fareVersion=document.getElementById("fareVersion");
 let packetVersion=document.getElementById("packetVersion");
 let jackpotVersion=document.getElementById("jackpotVersion");
+let stopNumberGroup=document.getElementById("stopNumberGroup");
 let fareVersionValue=0;
 let packetVersionValue=0;
+let stopNumJackpot=false;
+let iterateNumberIndex=1;
 fareVersion.addEventListener("change",function(){
     fareVersionValue=fareVersion.options[fareVersion.selectedIndex].value;
     packetVersion.style.display="block";
@@ -21,10 +24,14 @@ jackpotVersion.addEventListener("change",function(){
         numberJackpot();
     }
 });
+stopNumberGroup.addEventListener("click",function(){
+    stopNumJackpot=true;
+});
 function ballJackpot(){
 
 };
 function numberJackpot(){
+    stopNumJackpot=false;
     let randomNumberArray=[];
     document.getElementById("numberJackpot").style.display="block";
     document.getElementById("ballJackpot").style.display="none";
@@ -32,7 +39,21 @@ function numberJackpot(){
         let randomNumber=Math.floor(Math.random()*10);
         randomNumberArray[i]=randomNumber;
     }
-    document.getElementById("num-hundreds").textContent=randomNumberArray[0];
-    document.getElementById("num-tens").textContent=randomNumberArray[1];
-    document.getElementById("num-ones").textContent=randomNumberArray[2];
+    document.getElementById("numberJackpot-randomNum").textContent=`${randomNumberArray[0]}${randomNumberArray[1]}${randomNumberArray[2]}`;
+    iterateNumber();
+};
+function iterateNumber(){
+    if (stopNumJackpot==false){
+        if (iterateNumberIndex==999){
+            iterateNumberIndex=0;
+        }
+        let iterateStringIndex=iterateNumberIndex.toString().padStart(3,"0");
+        document.getElementById("num-hundreds").textContent=iterateStringIndex[0];
+        document.getElementById("num-tens").textContent=iterateStringIndex[1];
+        document.getElementById("num-ones").textContent=iterateStringIndex[2];
+        iterateNumberIndex++
+        let timeoutNumber=Math.floor(Math.random()*91)+10;
+        console.log(timeoutNumber);
+        setTimeout(iterateNumber,timeoutNumber);
+    }
 };

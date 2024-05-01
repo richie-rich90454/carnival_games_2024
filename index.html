@@ -31,13 +31,31 @@
             h1,h2,h3,h4,h5,h6{
                 font-weight: 600;
             }
+            .nums{
+                display: inline-block;
+                padding-left: 2rem;
+                padding-right: 2rem;
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+                background-color: #ECECEC;
+                margin: .2rem;
+                font-size: 5rem;
+            }
+            input[type="button"]{
+                background-color: #4CB9E5;
+                border: 1px solid #000;
+                border-radius: 5px;
+            }
+            input[type="button"]:hover{
+                font-size: 1.2rem;
+            }
         </style>
     </head>
     <body>
         <div id="main-div">
             <h1>The Animated Jackpot</h1>
             <select id="fareVersion">
-                <option value="" disabled selected>Which version of token did you choose?</option>
+                <option value="" disabled selected>Which value of token did you choose?</option>
                 <option value="1">$1</option>
                 <option value="2">$2</option>
             </select>
@@ -58,9 +76,9 @@
                 <h2>GET THE NUMBER ON THE ROLL WHEEL</h2>
                 <h3 id="numberJackpot-randomNum"></h3>
                 <div id="numberGroup">
-                    <span id="num-hundreds"></span>
-                    <span id="num-tens"></span>
-                    <span id="num-ones"></span>
+                    <div id="num-hundreds" class="nums"></div>
+                    <div id="num-tens" class="nums"></div>
+                    <div id="num-ones" class="nums"></div>
                 </div>
                 <input type="button" id="stopNumberGroup" value="STOP">
                 <div id="numberJackpot-returnMessage"></div>
