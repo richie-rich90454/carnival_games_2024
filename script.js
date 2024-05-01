@@ -25,5 +25,14 @@ function ballJackpot(){
 
 };
 function numberJackpot(){
-
+    let randomNumberArray=[];
+    document.getElementById("numberJackpot").style.display="block";
+    document.getElementById("ballJackpot").style.display="none";
+    for (let i=0;i<3;i++){
+        let randomNumber=Math.floor(Math.random()*10);
+        randomNumberArray[i]=randomNumber;
+    }
+    document.getElementById("num-hundreds").textContent=randomNumberArray[0];
+    document.getElementById("num-tens").textContent=randomNumberArray[1];
+    document.getElementById("num-ones").textContent=randomNumberArray[2];
 };

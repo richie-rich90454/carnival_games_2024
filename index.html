@@ -23,6 +23,14 @@
                 cursor: pointer;
                 margin: auto;
             }
+            input{
+                display: block;
+                margin: auto;
+                text-align: center;
+            }
+            h1,h2,h3,h4,h5,h6{
+                font-weight: 600;
+            }
         </style>
     </head>
     <body>
@@ -41,9 +49,22 @@
             </select>
             <select id="jackpotVersion" style="display: none;">
                 <option value="" disabled selected>Please select a Jackpot game you want to play</option>
-                <option value="ball">Ball Mode<option>
+                <option value="ball">Ball Mode</option>
                 <option value="number">Number Mode</option>
             </select>
+            <div id="ballJackpot">
+            </div>
+            <div id="numberJackpot" style="display: none;">
+                <h2>GET THE NUMBER ON THE ROLL WHEEL</h2>
+                <h3 id="numberJackpot-randomNum"></h3>
+                <div id="numberGroup">
+                    <span id="num-hundreds"></span>
+                    <span id="num-tens"></span>
+                    <span id="num-ones"></span>
+                </div>
+                <input type="button" id="stopNumberGroup" value="STOP">
+                <div id="numberJackpot-returnMessage"></div>
+            </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
