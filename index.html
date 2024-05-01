@@ -21,6 +21,7 @@
                 border: 1px solid #000;
                 border-radius: .77rem;
                 cursor: pointer;
+                margin: auto;
             }
         </style>
     </head>
@@ -29,17 +30,19 @@
             <h1>The Animated Jackpot</h1>
             <select id="fareVersion">
                 <option value="" disabled selected>Which version of token did you choose?</option>
-                <option value="one">$1</option>
-                <option value="two">$2</option>
+                <option value="1">$1</option>
+                <option value="2">$2</option>
             </select>
-            <select id="" style="display: none;">
+            <select id="packetVersion" style="display: none;">
                 <option value="" disabled selected>Which token packet did you choose?</option>
-                <option value="five">5</option>
-                <option value="ten">10</option>
-                <option value="twenty">20</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
             </select>
-            <select id="jackpotSelect" style="display: none;">
+            <select id="jackpotVersion" style="display: none;">
                 <option value="" disabled selected>Please select a Jackpot game you want to play</option>
+                <option value="ball">Ball Mode<option>
+                <option value="number">Number Mode</option>
             </select>
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
