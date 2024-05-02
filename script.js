@@ -27,6 +27,12 @@ jackpotVersion.addEventListener("change",function(){
 stopNumberGroup.addEventListener("click",function(){
     stopNumJackpot=true;
 });
+stopNumberGroup.addEventListener("mouseover",function(){
+    stopNumberGroup.style.fontSize="1.2rem";
+});
+stopNumberGroup.addEventListener("mouseout",function(){
+    stopNumberGroup.style.fontSize="1rem";
+});
 function ballJackpot(){
 
 };
@@ -40,20 +46,21 @@ function numberJackpot(){
         randomNumberArray[i]=randomNumber;
     }
     document.getElementById("numberJackpot-randomNum").textContent=`${randomNumberArray[0]}${randomNumberArray[1]}${randomNumberArray[2]}`;
+    iterateNumberIndex=randomNumberArray[0]*100;
     iterateNumber();
 };
 function iterateNumber(){
     if (stopNumJackpot==false){
-        if (iterateNumberIndex==999){
-            iterateNumberIndex=0;
+        if (iterateNumberIndex==(parseInt(document.getElementById("numberJackpot-randomNum").innerHTML[0])*100)+99){
+            iterateNumberIndex=parseInt(document.getElementById("numberJackpot-randomNum").innerHTML[0])*100;
         }
         let iterateStringIndex=iterateNumberIndex.toString().padStart(3,"0");
         document.getElementById("num-hundreds").textContent=iterateStringIndex[0];
         document.getElementById("num-tens").textContent=iterateStringIndex[1];
         document.getElementById("num-ones").textContent=iterateStringIndex[2];
-        iterateNumberIndex++
+        iterateNumberIndex++;
         let timeoutNumber=Math.floor(Math.random()*91)+10;
-        console.log(timeoutNumber);
+        console.log(timeoutNumber)
         setTimeout(iterateNumber,timeoutNumber);
     }
 };
