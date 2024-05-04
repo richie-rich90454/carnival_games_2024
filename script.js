@@ -28,16 +28,16 @@ jackpotVersion.addEventListener("change",function(){
 stopNumberGroup.addEventListener("click",function(){
     stopNumJackpot=true;
     let userStoppedIndex=parseInt(`${document.getElementById("num-hundreds").innerHTML}${document.getElementById("num-tens").innerHTML}${document.getElementById("num-ones").innerHTML}`);
-    console.log(`man ${userStoppedIndex}`);
+    console.log(userStoppedIndex);
     let actualJackpotNumber=randomNumberArray[0]*100+randomNumberArray[1]*10+randomNumberArray[2];
     if (userStoppedIndex>=Math.floor(actualJackpotNumber-(actualJackpotNumber*0.05))&&userStoppedIndex<=Math.floor(actualJackpotNumber+(actualJackpotNumber*0.05))){
         document.getElementById("numberJackpot-returnMessage").innerHTML="Congratulations! You won the 3<sup>rd</sup> prize, which is $2!";
-        if (userStoppedIndex>=Math.floor(actualJackpotNumber-(actualJackpotNumber*0.01))&&userStoppedIndex<=Math.floor(actualJackpotNumber-(actualJackpotNumber*0.05))){
-            document.getElementById("numberJackpot-returnMessage").innerHTML="Congratulations! You won the 2<sup>nd</sup> prize, which is $5!";
-        }
-        if (userStoppedIndex==actualJackpotNumber){
-            document.getElementById("numberJackpot-returnMessage").innerHTML="Congratulations! You won the 1<sup>st</sup> prize, which is $10!";
-        }
+    }
+    else if (userStoppedIndex==actualJackpotNumber-1||userStoppedIndex==actualJackpotNumber+1){
+        document.getElementById("numberJackpot-returnMessage").innerHTML="Congratulations! You won the 2<sup>nd</sup> prize, which is $5!";
+    }
+    else if (userStoppedIndex==actualJackpotNumber){
+        document.getElementById("numberJackpot-returnMessage").innerHTML="Congratulations! You won the 1<sup>st</sup> prize, which is $10!";
     }
     else{
         document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
