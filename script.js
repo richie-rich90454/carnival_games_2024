@@ -65,32 +65,33 @@ stopNumberGroup.addEventListener("click",function(){
     else{
         let userStoppedIndex=parseInt(`${document.getElementById("num-hundreds").innerHTML}${document.getElementById("num-tens").innerHTML}${document.getElementById("num-ones").innerHTML}`);
         let actualJackpotNumber=randomNumberArray[0]*100+randomNumberArray[1]*10+randomNumberArray[2];
-        console.log(actualJackpotNumber);
-        if (userStoppedIndex>=Math.floor(actualJackpotNumber-(actualJackpotNumber*0.05))&&userStoppedIndex<=Math.floor(actualJackpotNumber+(actualJackpotNumber*0.05))){
-            let secondarytimeoutRandomNumber=Math.random()*91;
-            let timeoutNumber=(Math.random()*secondarytimeoutRandomNumber)+10;
-            for (let i=1;i<=5;i++){
-                setTimeout(function(){
-                    document.getElementById("num-ones").innerHTML=parseInt(document.getElementById("num-ones").innerHTML)+1;
-                    if (parseInt(document.getElementById("num-ones").innerHTML)>=10){
-                        document.getElementById("num-tens").innerHTML=parseInt(document.getElementById("num-tens").innerHTML)+1;
-                        document.getElementById("num-ones").innerHTML=parseInt(document.getElementById("num-ones").innerHTML)-10;
-                        if (parseInt(document.getElementById("num-tens").innerHTML)>=10){
-                            document.getElementById("num-hundreds").innerHTML=parseInt(document.getElementById("num-hundreds").innerHTML)+1;
-                            document.getElementById("num-tens").innerHTML=parseInt(document.getElementById("num-tens").innerHTML)-10;
-                            if (parseInt(document.getElementById("num-tens").innerHTML)>=10){
-                                document.getElementById("num-ones").innerHTML=9;
-                                document.getElementById("num-tens").innerHTML=9;
-                                document.getElementById("num-hundreds").innerHTML=9;
-                            }
-                        }
+        let secondarytimeoutRandomNumber=Math.random()*91;
+        let timeoutNumber=(Math.random()*secondarytimeoutRandomNumber)+10;
+        let shiftingInterval=setInterval(function(){
+            secondarytimeoutRandomNumber=Math.random()*91;
+            timeoutNumber=(Math.random()*secondarytimeoutRandomNumber)+10;
+            userStoppedIndex=parseInt(`${document.getElementById("num-hundreds").innerHTML}${document.getElementById("num-tens").innerHTML}${document.getElementById("num-ones").innerHTML}`);
+            document.getElementById("num-ones").innerHTML=parseInt(document.getElementById("num-ones").innerHTML)+1;
+            if (parseInt(document.getElementById("num-ones").innerHTML)>=10){
+                document.getElementById("num-tens").innerHTML=parseInt(document.getElementById("num-tens").innerHTML)+1;
+                document.getElementById("num-ones").innerHTML=parseInt(document.getElementById("num-ones").innerHTML)-10;
+                if (parseInt(document.getElementById("num-tens").innerHTML)>=10){
+                    document.getElementById("num-hundreds").innerHTML=parseInt(document.getElementById("num-hundreds").innerHTML)+1;
+                    document.getElementById("num-tens").innerHTML=parseInt(document.getElementById("num-tens").innerHTML)-10;
+                    if (parseInt(document.getElementById("num-tens").innerHTML)>=10){
+                        document.getElementById("num-ones").innerHTML=randomNumberArray[0];
+                        document.getElementById("num-tens").innerHTML=0;
+                        document.getElementById("num-hundreds").innerHTML=0;
                     }
-                },timeoutNumber);
+                }
             }
-        }
-        document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
+            if (userStoppedIndex<Math.floor(actualJackpotNumber-(actualJackpotNumber*0.05))||userStoppedIndex>Math.floor(actualJackpotNumber+(actualJackpotNumber*0.05))){
+                clearInterval(shiftingInterval);
+                document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
+            }
+        },timeoutNumber);
+        console.log("allowed jackpots: "+allowedJackpots)
     }
-    console.log("allowed jackpots: "+allowedJackpots)
     setTimeout(numberJackpot,1000);
 });
 stopNumberGroup.addEventListener("mouseover",function(){
