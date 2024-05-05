@@ -72,20 +72,20 @@ stopNumberGroup.addEventListener("click",function(){
             for (let i=1;i<=5;i++){
                 setTimeout(function(){
                     document.getElementById("num-ones").innerHTML=parseInt(document.getElementById("num-ones").innerHTML)+1;
-                },timeoutNumber);
-                if (parseInt(document.getElementById("num-ones").innerHTML)>=10){
-                    document.getElementById("num-tens").innerHTML=parseInt(document.getElementById("num-tens").innerHTML)+1;
-                    document.getElementById("num-ones").innerHTML=parseInt(document.getElementById("num-ones").innerHTML)-10;
-                    if (parseInt(document.getElementById("num-tens").innerHTML)>=10){
-                        document.getElementById("num-hundreds").innerHTML=parseInt(document.getElementById("num-hundreds").innerHTML)+1;
-                        document.getElementById("num-tens").innerHTML=parseInt(document.getElementById("num-tens").innerHTML)-10;
+                    if (parseInt(document.getElementById("num-ones").innerHTML)>=10){
+                        document.getElementById("num-tens").innerHTML=parseInt(document.getElementById("num-tens").innerHTML)+1;
+                        document.getElementById("num-ones").innerHTML=parseInt(document.getElementById("num-ones").innerHTML)-10;
                         if (parseInt(document.getElementById("num-tens").innerHTML)>=10){
-                            document.getElementById("num-ones").innerHTML=9;
-                            document.getElementById("num-tens").innerHTML=9;
-                            document.getElementById("num-hundreds").innerHTML=9;
+                            document.getElementById("num-hundreds").innerHTML=parseInt(document.getElementById("num-hundreds").innerHTML)+1;
+                            document.getElementById("num-tens").innerHTML=parseInt(document.getElementById("num-tens").innerHTML)-10;
+                            if (parseInt(document.getElementById("num-tens").innerHTML)>=10){
+                                document.getElementById("num-ones").innerHTML=9;
+                                document.getElementById("num-tens").innerHTML=9;
+                                document.getElementById("num-hundreds").innerHTML=9;
+                            }
                         }
                     }
-                }
+                },timeoutNumber);
             }
         }
         document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
