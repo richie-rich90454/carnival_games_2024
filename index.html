@@ -50,12 +50,23 @@
                 border: 1px solid #000;
                 border-radius: 5px;
             }
+            #prizes{
+                font-family: tahoma;
+                font-size: 1.2rem;
+                text-align: center;
+                list-style-type: none;
+            }
         </style>
     </head>
     <body>
         <div id="main-div">
             <h1>The Animated Jackpot</h1>
-            <h2 id="gameOverMsg" style="display: none;">GAME OVER</h2>
+            <div id="gameOver" style="display: none;">
+                <h2 id="gameOverMsg">GAME OVER</h2>
+                <h1 id="you-won" style="display: none;">You won:</h1>
+                <ul id="prizes" style="display: none;"></ul>
+                <div id="no-prize-return"></div>
+            </div>
             <select id="fareVersion">
                 <option value="" disabled selected>Which value of token did you choose?</option>
                 <option value="1">$1</option>

@@ -7,7 +7,9 @@ let packetVersionValue=0;
 let stopNumJackpot=false;
 let iterateNumberIndex=1;
 let randomNumberArray=[];
+let prizesArray=[];
 let allowedJackpots;
+let shiftingInterval;
 fareVersion.addEventListener("change",function(){
     fareVersionValue=fareVersion.options[fareVersion.selectedIndex].value;
     if (fareVersionValue==1){
@@ -51,11 +53,16 @@ stopNumberGroup.addEventListener("click",function(){
             console.log(actualJackpotNumber);
             if (userStoppedIndex>=Math.floor(actualJackpotNumber-(actualJackpotNumber*0.01))&&userStoppedIndex<=Math.floor(actualJackpotNumber+(actualJackpotNumber*0.01))){
                 document.getElementById("numberJackpot-returnMessage").innerHTML="Congratulations! You won the 3<sup>rd</sup> prize, which is $2!";
+                prizesArray.push("3");
                 if (userStoppedIndex==actualJackpotNumber-1||userStoppedIndex==actualJackpotNumber+1){
                     document.getElementById("numberJackpot-returnMessage").innerHTML="Congratulations! You won the 2<sup>nd</sup> prize, which is $5!";
+                    prizesArray.pop();
+                    prizesArray.push("2");
                 }
                 if (userStoppedIndex==actualJackpotNumber){
                     document.getElementById("numberJackpot-returnMessage").innerHTML="Congratulations! You won the 1<sup>st</sup> prize, which is $10!";
+                    prizesArray.pop();
+                    prizesArray.push("1");
                 }
                 allowedJackpots--;
             }
@@ -69,7 +76,7 @@ stopNumberGroup.addEventListener("click",function(){
             let actualJackpotNumber=randomNumberArray[0]*100+randomNumberArray[1]*10+randomNumberArray[2];
             let secondarytimeoutRandomNumber=Math.random()*91;
             let timeoutNumber=(Math.random()*secondarytimeoutRandomNumber)+10;
-            let shiftingInterval=setInterval(function(){
+            shiftingInterval=setInterval(function(){
                 secondarytimeoutRandomNumber=Math.random()*91;
                 timeoutNumber=(Math.random()*secondarytimeoutRandomNumber)+10;
                 userStoppedIndex=parseInt(`${document.getElementById("num-hundreds").innerHTML}${document.getElementById("num-tens").innerHTML}${document.getElementById("num-ones").innerHTML}`);
@@ -80,7 +87,7 @@ stopNumberGroup.addEventListener("click",function(){
                     if (parseInt(document.getElementById("num-tens").innerHTML)>=10){
                         document.getElementById("num-hundreds").innerHTML=parseInt(document.getElementById("num-hundreds").innerHTML)+1;
                         document.getElementById("num-tens").innerHTML=parseInt(document.getElementById("num-tens").innerHTML)-10;
-                        if (parseInt(document.getElementById("num-tens").innerHTML)>=10){
+                        if (parseInt(document.getElementById("num-hundreds").innerHTML)>=10){
                             document.getElementById("num-ones").innerHTML=randomNumberArray[0];
                             document.getElementById("num-tens").innerHTML=0;
                             document.getElementById("num-hundreds").innerHTML=0;
@@ -94,15 +101,64 @@ stopNumberGroup.addEventListener("click",function(){
                     document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
                 }
             },timeoutNumber);
-            console.log("allowed jackpots: "+allowedJackpots)
+            console.log("allowed jackpots: "+allowedJackpots);
         }
         packetVersionValue--;
     }
     else{
         setTimeout(function(){
+            clearInterval(shiftingInterval);
             document.getElementById("numberJackpot").style.display="none";
-            document.getElementById("gameOverMsg").style.display="block";
-        },2000);
+            document.getElementById("packetVersion").style.display="none";
+            document.getElementById("jackpotVersion").style.display="none";
+            document.getElementById("gameOver").style.display="block";
+            let firstCounter=0;
+            let secondCounter=0;
+            let thirdCounter=0;
+            prizesArray.forEach(function(prize){
+                switch(prize){
+                    case "3":
+                        thirdCounter++;
+                        break;
+                    case "2":
+                        secondCounter++;
+                        break;
+                    case "1":
+                        firstCounter++;
+                        break;
+                    default:
+                        break;
+                }
+            });
+            console.log(firstCounter);
+            console.log(secondCounter);
+            console.log(thirdCounter);
+            prizesArray=[];
+            if (firstCounter!=0||secondCounter!=0||thirdCounter!=0){
+                document.getElementById("prizes").style.display="block";
+                document.getElementById("you-won").style.display="block";
+                if (firstCounter!=0){
+                    let firstPrizeItem=document.createElement("li");
+                    firstPrizeItem.innerHTML=`${firstCounter}x1<sup>st</sup> (${firstCounter*10} tokens in total)`;
+                    document.getElementById("prizes").appendChild(firstPrizeItem);
+                }
+                if (secondCounter!=0){
+                    let secondPrizeItem=document.createElement("li");
+                    secondPrizeItem.innerHTML=`${secondCounter}x2<sup>nd</sup> (${secondCounter*5} tokens in total)`;
+                    document.getElementById("prizes").appendChild(secondPrizeItem);
+                }
+                if (thirdCounter!=0){
+                    let thirdPrizeItem=document.createElement("li");
+                    thirdPrizeItem.innerHTML=`${thirdCounter}x3<sup>rd</sup> (${thirdCounter*2} tokens in total)`;
+                    document.getElementById("prizes").appendChild(thirdPrizeItem);
+                }
+            }
+            else{
+                document.getElementById("you-won").style.display="none";
+                document.getElementById("prizes").style.display="none";
+                document.getElementById("no-prize-return").innerHTML="Unfortunately, you did not win any prizes.";
+            }
+        },3000);
     }
 });
 stopNumberGroup.addEventListener("mouseover",function(){
