@@ -27,10 +27,10 @@ packetVersion.addEventListener("change",function(){
         allowedJackpots=allowedJackpots*1;
     }
     else if (packetVersionValue==10){
-        allowedJackpots=allowedJackpots*2;
+        allowedJackpots=allowedJackpots*1;
     }
     else{
-        allowedJackpots=allowedJackpots*3;
+        allowedJackpots=allowedJackpots*2;
     }
     packetVersion.style.display="none";
     jackpotVersion.style.display="block";
@@ -77,8 +77,11 @@ stopNumberGroup.addEventListener("click",function(){
             let secondarytimeoutRandomNumber=Math.random()*91;
             let timeoutNumber=(Math.random()*secondarytimeoutRandomNumber)+10;
             shiftingInterval=setInterval(function(){
-                secondarytimeoutRandomNumber=Math.random()*91;
-                timeoutNumber=(Math.random()*secondarytimeoutRandomNumber)+10;
+                if (userStoppedIndex<Math.floor(actualJackpotNumber-(actualJackpotNumber*0.01))||userStoppedIndex>Math.floor(actualJackpotNumber+(actualJackpotNumber*0.01))){
+                    clearInterval(shiftingInterval);
+                    document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
+                    setTimeout(numberJackpot,1000);
+                }
                 userStoppedIndex=parseInt(`${document.getElementById("num-hundreds").innerHTML}${document.getElementById("num-tens").innerHTML}${document.getElementById("num-ones").innerHTML}`);
                 document.getElementById("num-ones").innerHTML=parseInt(document.getElementById("num-ones").innerHTML)+1;
                 if (parseInt(document.getElementById("num-ones").innerHTML)>=10){
@@ -95,20 +98,14 @@ stopNumberGroup.addEventListener("click",function(){
                     }
                     userStoppedIndex=parseInt(`${document.getElementById("num-hundreds").innerHTML}${document.getElementById("num-tens").innerHTML}${document.getElementById("num-ones").innerHTML}`);
                 }
-                if (userStoppedIndex<Math.floor(actualJackpotNumber-(actualJackpotNumber*0.01))||userStoppedIndex>Math.floor(actualJackpotNumber+(actualJackpotNumber*0.01))){
-                    clearInterval(shiftingInterval);
-                    setTimeout(numberJackpot,1000);
-                    document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
-                }
             },timeoutNumber);
-            console.log("allowed jackpots: "+allowedJackpots);
         }
         packetVersionValue--;
     }
     else{
+        clearInterval(shiftingInterval);
         setTimeout(function(){
             document.getElementById("prizes").innerHTML="";
-            clearInterval(shiftingInterval);
             document.getElementById("numberJackpot").style.display="none";
             document.getElementById("packetVersion").style.display="none";
             document.getElementById("jackpotVersion").style.display="none";
@@ -131,9 +128,6 @@ stopNumberGroup.addEventListener("click",function(){
                         break;
                 }
             });
-            console.log(firstCounter);
-            console.log(secondCounter);
-            console.log(thirdCounter);
             prizesArray=[];
             if (firstCounter!=0||secondCounter!=0||thirdCounter!=0){
                 document.getElementById("prizes").style.display="block";
