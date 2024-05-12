@@ -107,6 +107,7 @@ stopNumberGroup.addEventListener("click",function(){
     }
     else{
         setTimeout(function(){
+            document.getElementById("prizes").innerHTML="";
             clearInterval(shiftingInterval);
             document.getElementById("numberJackpot").style.display="none";
             document.getElementById("packetVersion").style.display="none";
@@ -138,19 +139,30 @@ stopNumberGroup.addEventListener("click",function(){
                 document.getElementById("prizes").style.display="block";
                 document.getElementById("you-won").style.display="block";
                 if (firstCounter!=0){
-                    let firstPrizeItem=document.createElement("li");
-                    firstPrizeItem.innerHTML=`${firstCounter}x1<sup>st</sup> (${firstCounter*10} tokens in total)`;
-                    document.getElementById("prizes").appendChild(firstPrizeItem);
+                    // let firstPrizeItem=document.createElement("li");
+                    // firstPrizeItem.innerHTML=`${firstCounter}x1<sup>st</sup> (${firstCounter*10} tokens in total)`;
+                    // firstPrizeItem.style.display="none";
+                    // document.getElementById("prizes").appendChild(firstPrizeItem);
+                    // $(firstPrizeItem).fadeIn(1000);
+                    let firstPrizeItem=$("<li>").html(`${firstCounter}x1<sup>st</sup> (${firstCounter*10} tokens in total)`).hide().appendTo("#prizes").fadeIn(1000);
                 }
                 if (secondCounter!=0){
-                    let secondPrizeItem=document.createElement("li");
-                    secondPrizeItem.innerHTML=`${secondCounter}x2<sup>nd</sup> (${secondCounter*5} tokens in total)`;
-                    document.getElementById("prizes").appendChild(secondPrizeItem);
+                    // let secondPrizeItem=document.createElement("li");
+                    // secondPrizeItem.innerHTML=`${secondCounter}x2<sup>nd</sup> (${secondCounter*5} tokens in total)`;
+                    // secondPrizeItem.style.display="none";
+                    // document.getElementById("prizes").appendChild(secondPrizeItem);
+                    // $(secondPrizeItem).fadeIn(1000);
+                    let secondPrizeItem=$("<li>").html(`${secondCounter}x2<sup>nd</sup> (${secondCounter*5} tokens in total)`).hide().appendTo("#prizes").fadeIn(1000);
+
                 }
                 if (thirdCounter!=0){
-                    let thirdPrizeItem=document.createElement("li");
-                    thirdPrizeItem.innerHTML=`${thirdCounter}x3<sup>rd</sup> (${thirdCounter*2} tokens in total)`;
-                    document.getElementById("prizes").appendChild(thirdPrizeItem);
+                    // let thirdPrizeItem=document.createElement("li");
+                    // thirdPrizeItem.innerHTML=`${thirdCounter}x3<sup>rd</sup> (${thirdCounter*2} tokens in total)`;
+                    // thirdPrizeItem.style.display="none";
+                    // document.getElementById("prizes").appendChild(thirdPrizeItem);
+                    // thirdPrizeItem.fadeIn(1000);
+                    let thirdPrizeItem=$("<li>").html(`${thirdCounter}x3<sup>rd</sup> (${thirdCounter*2} tokens in total)`).hide().appendTo("#prizes").fadeIn(1000);
+
                 }
             }
             else{
