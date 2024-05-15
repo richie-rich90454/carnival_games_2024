@@ -49,12 +49,17 @@ function stopNum(){
     stopNumJackpot=true;
     prizeOutcome();
 }
+replayGame.addEventListener("click",function(){
+    document.getElementById("gameOver").style.display="none";
+    document.getElementById("fareVersion").style.display="block";
+    fareVersion.selectedIndex=0;
+    packetVersion.selectedIndex=0;
+    jackpotVersion.selectedIndex=0;
+});
 function prizeOutcome(){
     if (allowedJackpots>0){
         let userStoppedIndex=parseInt(`${document.getElementById("num-hundreds").innerHTML}${document.getElementById("num-tens").innerHTML}${document.getElementById("num-ones").innerHTML}`);
-        console.log(userStoppedIndex);
         let actualJackpotNumber=randomNumberArray[0]*100+randomNumberArray[1]*10+randomNumberArray[2];
-        console.log(actualJackpotNumber);
         if (actualJackpotNumber<200){
             if (userStoppedIndex==actualJackpotNumber-1||userStoppedIndex==actualJackpotNumber+1){
                 document.getElementById("numberJackpot-returnMessage").innerHTML="Congratulations! You won the 2<sup>nd</sup> prize, which is $5!";
@@ -236,7 +241,6 @@ function iterateNumber(){
         iterateNumberIndex++;
         let secondarytimeoutRandomNumber=Math.random()*91;
         let timeoutNumber=(Math.random()*secondarytimeoutRandomNumber)+10;
-        // console.log(timeoutNumber);
         setTimeout(iterateNumber,timeoutNumber);
     }
 };
