@@ -206,12 +206,12 @@ function endGame(){
         }
     },3000);
 }
-stopNumberGroup.addEventListener("mouseover",function(){
-    stopNumberGroup.style.fontSize="1.2rem";
-});
-stopNumberGroup.addEventListener("mouseout",function(){
-    stopNumberGroup.style.fontSize="1rem";
-});
+// stopNumberGroup.addEventListener("mouseover",function(){
+//     stopNumberGroup.style.fontSize="1.2rem";
+// });
+// stopNumberGroup.addEventListener("mouseout",function(){
+//     stopNumberGroup.style.fontSize="1rem";
+// });
 function ballJackpot(){
 
 };
