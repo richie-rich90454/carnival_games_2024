@@ -2,6 +2,7 @@ let fareVersion=document.getElementById("fareVersion");
 let packetVersion=document.getElementById("packetVersion");
 let jackpotVersion=document.getElementById("jackpotVersion");
 let stopNumberGroup=document.getElementById("stopNumberGroup");
+let replayGame=document.getElementById("replay");
 let fareVersionValue=0;
 let packetVersionValue=0;
 let stopNumJackpot=false;
@@ -23,10 +24,10 @@ fareVersion.addEventListener("change",function(){
 });
 packetVersion.addEventListener("change",function(){
     packetVersionValue=packetVersion.options[packetVersion.selectedIndex].value;
-    if (packetVersionValue==5){
+    if (packetVersionValue==6){
         allowedJackpots=allowedJackpots*1;
     }
-    else if (packetVersionValue==10){
+    else if (packetVersionValue==11){
         allowedJackpots=allowedJackpots*1;
     }
     else{
@@ -49,10 +50,6 @@ function stopNum(){
     prizeOutcome();
 }
 function prizeOutcome(){
-    if (packetVersionValue==1){
-        endGame();
-        return;
-    }
     if (allowedJackpots>0){
         let userStoppedIndex=parseInt(`${document.getElementById("num-hundreds").innerHTML}${document.getElementById("num-tens").innerHTML}${document.getElementById("num-ones").innerHTML}`);
         console.log(userStoppedIndex);
@@ -73,12 +70,17 @@ function prizeOutcome(){
             }
             else{
                 document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
+            }
+            if (packetVersionValue==1){
+                endGame();
+                return;
             }            
         }
         else if (actualJackpotNumber>=200){
             if (userStoppedIndex>=Math.floor(actualJackpotNumber-(actualJackpotNumber*0.01))&&userStoppedIndex<=Math.floor(actualJackpotNumber+(actualJackpotNumber*0.01))){
                 document.getElementById("numberJackpot-returnMessage").innerHTML="Congratulations! You won the 3<sup>rd</sup> prize, which is $2!";
                 prizesArray.push("3");
+                allowedJackpots--;
                 if (userStoppedIndex==actualJackpotNumber-1||userStoppedIndex==actualJackpotNumber+1){
                     document.getElementById("numberJackpot-returnMessage").innerHTML="Congratulations! You won the 2<sup>nd</sup> prize, which is $5!";
                     prizesArray.pop();
@@ -89,10 +91,13 @@ function prizeOutcome(){
                     prizesArray.pop();
                     prizesArray.push("1");
                 }
-                allowedJackpots--;
             }
             else{
                 document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
+            }
+            if (packetVersionValue==1){
+                endGame();
+                return;
             }
         }
         setTimeout(numberJackpot,1000);
@@ -106,7 +111,13 @@ function prizeOutcome(){
             if (userStoppedIndex<Math.floor(actualJackpotNumber-(actualJackpotNumber*0.01))||userStoppedIndex>Math.floor(actualJackpotNumber+actualJackpotNumber*0.01)){
                 clearInterval(shiftingInterval);
                 document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
-                setTimeout(numberJackpot,1000);
+                if (packetVersionValue>1){
+                    setTimeout(numberJackpot,1000);
+                }
+                if (packetVersionValue==1){
+                    setTimeout(endGame,500);
+                    return;
+                }
             }
             userStoppedIndex=parseInt(`${document.getElementById("num-hundreds").innerHTML}${document.getElementById("num-tens").innerHTML}${document.getElementById("num-ones").innerHTML}`);
             let numOnes=parseInt(document.getElementById("num-ones").innerHTML);
@@ -144,16 +155,20 @@ function endGame(){
         let firstCounter=0;
         let secondCounter=0;
         let thirdCounter=0;
+        let totalCounter=0;
         prizesArray.forEach(function(prize){
             switch(prize){
                 case "3":
                     thirdCounter++;
+                    totalCounter=totalCounter+2;
                     break;
                 case "2":
                     secondCounter++;
+                    totalCounter=totalCounter+5;
                     break;
                 case "1":
                     firstCounter++;
+                    totalCounter=totalCounter+10;
                     break;
                 default:
                     break;
@@ -163,21 +178,25 @@ function endGame(){
         if (firstCounter!=0||secondCounter!=0||thirdCounter!=0){
             document.getElementById("prizes").style.display="block";
             document.getElementById("you-won").style.display="block";
+            document.getElementById("no-prize-return").style.display="none";
             if (firstCounter!=0){
                 let firstPrizeItem=$("<li>").html(`${firstCounter}x1<sup>st</sup> (${firstCounter*10} tokens in total)`).hide().appendTo("#prizes").fadeIn(1000);
             }
             if (secondCounter!=0){
                 let secondPrizeItem=$("<li>").html(`${secondCounter}x2<sup>nd</sup> (${secondCounter*5} tokens in total)`).hide().appendTo("#prizes").fadeIn(1000);
-
             }
             if (thirdCounter!=0){
                 let thirdPrizeItem=$("<li>").html(`${thirdCounter}x3<sup>rd</sup> (${thirdCounter*2} tokens in total)`).hide().appendTo("#prizes").fadeIn(1000);
-
             }
+            document.getElementById("totalPrizes").style.display="none";
+            document.getElementById("totalPrizes").innerHTML=`The total amount of tokens you gained is ${totalCounter}`;
+                setTimeout(function(){$("#totalPrizes").fadeIn(1000)
+            },1000);
         }
         else{
             document.getElementById("you-won").style.display="none";
             document.getElementById("prizes").style.display="none";
+            document.getElementById("totalPrizes").style.display="none";
             document.getElementById("no-prize-return").innerHTML="Unfortunately, you did not win any prizes.";
         }
     },3000);
