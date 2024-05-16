@@ -216,11 +216,10 @@ function endGame(){
 function ballJackpot(){
     stopBallJackpot=false;
     document.getElementById("numberJackpot").style.display="none";
-    document.getElementById("ballJackpot").style.display="none";
+    document.getElementById("ballJackpot").style.display="block";
     document.getElementById("ballJackpot-returnMessage").innerHTML="";
     let wheelCanvas=document.getElementById("wheel");
     let wheelContext=wheelCanvas.getContext('2d');
-
     wheelContext.beginPath();
     wheelContext.arc(95, 50, 40, 0, 2*Math.PI);
     wheelContext.stroke();
