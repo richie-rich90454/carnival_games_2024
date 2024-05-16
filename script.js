@@ -213,7 +213,7 @@ function endGame(){
 //     stopNumberGroup.style.fontSize="1rem";
 // });
 function ballJackpot(){
-
+    
 };
 function numberJackpot(){
     stopNumJackpot=false;
