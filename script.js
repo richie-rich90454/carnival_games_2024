@@ -221,7 +221,17 @@ function ballJackpot(){
     let wheelCanvas=document.getElementById("wheel");
     let wheelContext=wheelCanvas.getContext('2d');
     wheelContext.beginPath();
-    wheelContext.arc(95, 50, 40, 0, 2*Math.PI);
+    wheelContext.arc(250, 250, 200, 0, 2*Math.PI);
+    wheelContext.fillStyle="#F00";
+    wheelContext.fill();
+    wheelContext.stroke();
+    wheelContext.beginPath();
+    wheelContext.moveTo(450,250);
+    wheelContext.lineTo(50,250);
+    wheelContext.stroke();
+    wheelContext.beginPath();
+    wheelContext.moveTo(250,50);
+    wheelContext.lineTo(250,450);
     wheelContext.stroke();
 };
 function numberJackpot(){
