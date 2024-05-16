@@ -11,6 +11,7 @@ let randomNumberArray=[];
 let prizesArray=[];
 let allowedJackpots;
 let shiftingInterval;
+let stopBallJackpot=false;
 fareVersion.addEventListener("change",function(){
     fareVersionValue=fareVersion.options[fareVersion.selectedIndex].value;
     if (fareVersionValue==1){
@@ -213,7 +214,16 @@ function endGame(){
 //     stopNumberGroup.style.fontSize="1rem";
 // });
 function ballJackpot(){
-    
+    stopBallJackpot=false;
+    document.getElementById("numberJackpot").style.display="none";
+    document.getElementById("ballJackpot").style.display="none";
+    document.getElementById("ballJackpot-returnMessage").innerHTML="";
+    let wheelCanvas=document.getElementById("wheel");
+    let wheelContext=wheelCanvas.getContext('2d');
+
+    wheelContext.beginPath();
+    wheelContext.arc(95, 50, 40, 0, 2*Math.PI);
+    wheelContext.stroke();
 };
 function numberJackpot(){
     stopNumJackpot=false;
