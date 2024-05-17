@@ -2,6 +2,7 @@ let fareVersion=document.getElementById("fareVersion");
 let packetVersion=document.getElementById("packetVersion");
 let jackpotVersion=document.getElementById("jackpotVersion");
 let stopNumberGroup=document.getElementById("stopNumberGroup");
+let stopWheel=document.getElementById("stopBall");
 let replayGame=document.getElementById("replay");
 let fareVersionValue=0;
 let packetVersionValue=0;
@@ -12,7 +13,8 @@ let prizesArray=[];
 let allowedJackpots;
 let shiftingInterval;
 let stopBallJackpot=false;
-
+let spinChart;
+let spinExecutionLog;
 fareVersion.addEventListener("change",function(){
     fareVersionValue=fareVersion.options[fareVersion.selectedIndex].value;
     if (fareVersionValue==1){
@@ -215,25 +217,57 @@ stopNumberGroup.addEventListener("mouseout",function(){
     stopNumberGroup.style.fontSize="1rem";
 });
 function ballJackpot(){
+    spinExecutionLog++;
     stopBallJackpot=false;
-    document.getElementById("numberJackpot").style.display="none";
-    document.getElementById("ballJackpot").style.display="block";
-    document.getElementById("ballJackpot-returnMessage").innerHTML="";
-    let wheelCanvas=document.getElementById("wheel");
-    let wheelContext=wheelCanvas.getContext('2d');
-    wheelContext.beginPath();
-    wheelContext.arc(250, 250, 200, 0, 2*Math.PI);
-    wheelContext.fillStyle="#F00";
-    wheelContext.fill();
-    wheelContext.stroke();
-    wheelContext.beginPath();
-    wheelContext.moveTo(450,250);
-    wheelContext.lineTo(50,250);
-    wheelContext.stroke();
-    wheelContext.beginPath();
-    wheelContext.moveTo(250,50);
-    wheelContext.lineTo(250,450);
-    wheelContext.stroke();
+    const spinWheel=document.getElementById("wheel");
+    const rotationValues=[
+        {minDeg: 0, maxDeg: 60, value: 1},
+        {minDeg: 61, maxDeg: 120, value: 1},
+        {minDeg: 121, maxDeg: 180, value: 1},
+        {minDeg: 181, maxDeg: 240, value: 1},
+        {minDeg: 241, maxDeg: 300, value: 1},
+        {minDeg: 301, maxDeg: 360, value: 1},
+    ]
+    const data=[1,4,1.5,4,2,4];
+    let pieColors=[];
+    let oppositePieColors=[];
+    for (let i=0;i<6;i++){
+        pieColors.push(`#${Math.floor(Math.random()*16777215).toString(16)}`);
+    }
+    pieColors.forEach(function(color){
+        oppositePieColors.push(color)
+    })
+    if (spinExecutionLog>1){
+        myCharts.destroy();
+    }
+    myCharts=new Chart(spinWheel,{
+        plugins: [ChartDataLabels],
+        type: 'pie',
+        data: {
+            labels: ["1st Prize", "Nothing", "2nd Prize", "Nothing", "3rd Pize", "Nothing"],
+            datasets:[
+                {
+                    backgroundColor: pieColors,
+                    data: data,
+                }
+            ]
+        },
+        options:{
+            responsive: true,
+            animation: {duration: 0},
+            plugins:{
+                tooltip: false,
+                legend: {display: false},
+                datalabels:{
+                    color: "#000000",
+                    formatter: function(_,context){
+                        return context.chart.data.labels[context.dataIndex];
+                    },
+                    font: {size: 23},
+                }
+            }
+        }
+    });
 };
 function numberJackpot(){
     stopNumJackpot=false;
@@ -264,3 +298,31 @@ function iterateNumber(){
         setTimeout(iterateNumber,timeoutNumber);
     }
 };
+    // function valueGenerator(angleValue){
+    //     for (let i=0;i<rotationValues.length;i++){
+    //         if (angleValue>=rotationValues[i].minDeg&&angleValue<=rotationValues[i].maxDeg){
+    //             stopWheel.disabled=false;
+    //             break;
+    //         }
+    //     }
+    // }
+    // let count=0;
+    // let resultValue=101;
+    // stopWheel.addEventListener("click",function(){
+
+    // });
+    // let wheelCanvas=document.getElementById("wheel");
+    // let wheelContext=wheelCanvas.getContext('2d');
+    // wheelContext.beginPath();
+    // wheelContext.arc(250, 250, 200, 0, 2*Math.PI);
+    // wheelContext.fillStyle="#F00";
+    // wheelContext.fill();
+    // wheelContext.stroke();
+    // wheelContext.beginPath();
+    // wheelContext.moveTo(450,250);
+    // wheelContext.lineTo(50,250);
+    // wheelContext.stroke();
+    // wheelContext.beginPath();
+    // wheelContext.moveTo(250,50);
+    // wheelContext.lineTo(250,450);
+    // wheelContext.stroke();
