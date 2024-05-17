@@ -12,6 +12,7 @@ let prizesArray=[];
 let allowedJackpots;
 let shiftingInterval;
 let stopBallJackpot=false;
+
 fareVersion.addEventListener("change",function(){
     fareVersionValue=fareVersion.options[fareVersion.selectedIndex].value;
     if (fareVersionValue==1){
