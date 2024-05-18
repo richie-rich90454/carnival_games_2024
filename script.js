@@ -15,6 +15,7 @@ let shiftingInterval;
 let stopBallJackpot=false;
 let spinChart;
 let spinExecutionLog=0;
+let spinInterval;
 fareVersion.addEventListener("change",function(){
     fareVersionValue=fareVersion.options[fareVersion.selectedIndex].value;
     if (fareVersionValue==1){
@@ -234,18 +235,14 @@ function ballJackpot(){
     ]
     const data=[0.5,4,1,4,2,4];
     let pieColors=[];
-    let oppositePieColors=[];
     for (let i=0;i<6;i++){
         let randomColor=`#${Math.floor(Math.random()*16777215).toString(16)}`;
-        let opColor=`#${0xFFFFFF^parseInt(randomColor.replace("#",""),16).toString(16).padStart(6,"0")}`;
         pieColors.push(randomColor);
-        oppositePieColors.push(opColor);
-        console.log(oppositePieColors);
     }
     if (spinExecutionLog>1){
-        myCharts.destroy();
+        wheelChart.destroy();
     }
-    myCharts=new Chart(spinWheel,{
+    wheelChart=new Chart(spinWheel,{
         plugins: [ChartDataLabels],
         type: 'pie',
         data: {
@@ -269,14 +266,26 @@ function ballJackpot(){
                     },
                     color: "#000",
                     font: {
-                        size: 20,
+                        size: 15,
                         family: "Tahoma",
                     },
                 }
-            }
-        }
+            },
+            width: 300,
+            height: 300,
+        },
     });
+    let resultValue=3;
+    spinInterval=setInterval(function(){
+        wheelChart.options.rotation=wheelChart.options.rotation+resultValue;
+        wheelChart.update();
+    },Math.floor(Math.random()*5)+1);
 };
+stopWheel.addEventListener("click",function(){
+    stopBallJackpot=true;
+    clearInterval(spinInterval);
+    setTimeout(ballJackpot,1000);
+});
 function numberJackpot(){
     stopNumJackpot=false;
     stopNumberGroup.disabled=false;
