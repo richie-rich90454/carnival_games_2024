@@ -13,7 +13,7 @@
                 font-family: dollar-bill;
                 src: url(dollar_bill.ttf);
             }
-            @font-face {
+            @font-face{
                 font-family: eb-garamond;
                 src: url(EBGaramond-Regular.ttf);
             }
@@ -76,11 +76,18 @@
                 margin: auto;
             }
             #wheelContainer{
+                top: 0;
+                padding: 0;
                 box-sizing: border-box;
                 width: 60%;
                 height: 60%;
                 text-align: center;
-                margin: auto;
+            }
+            #pointerContainer{
+                position: absolute;
+                width: 4rem;
+                top: 40%;
+                margin-left: 29rem;
             }
         </style>
     </head>
@@ -116,8 +123,13 @@
             </select>
             <div id="ballJackpot" style="display: none;">
                 <h2>Stop the ball on the wheel's prize areas</h2>
-                <div id="wheelContainer">
-                    <canvas id="wheel"></canvas>
+                <div style="display: flex; width: 100%; height: 100%; box-sizing: border-box;">
+                    <div id="wheelContainer">
+                        <canvas id="wheel"></canvas>
+                    </div>
+                    <div id="pointerContainer">
+                        <canvas id="pointer" width="100" height="50"></canvas>
+                    </div>
                 </div>
                 <div>
                     <input type="button" id="stopBall" value="STOP BALL">

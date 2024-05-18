@@ -4,6 +4,8 @@ let jackpotVersion=document.getElementById("jackpotVersion");
 let stopNumberGroup=document.getElementById("stopNumberGroup");
 let stopWheel=document.getElementById("stopBall");
 let replayGame=document.getElementById("replay");
+let spinWheel=document.getElementById("wheel");
+let spinPointerContext=document.getElementById("pointer").getContext("2d");
 let fareVersionValue=0;
 let packetVersionValue=0;
 let stopNumJackpot=false;
@@ -16,8 +18,15 @@ let stopBallJackpot=false;
 let spinChart;
 let spinExecutionLog=0;
 let spinInterval;
-const spinWheel=document.getElementById("wheel");
 let wheelChart;
+spinPointerContext.beginPath();
+spinPointerContext.moveTo(0,25);
+spinPointerContext.lineTo(25,50);
+spinPointerContext.lineTo(25,0);
+spinPointerContext.lineTo(0,25);
+spinPointerContext.fillStyle="#000";
+spinPointerContext.fill();
+spinPointerContext.stroke();
 fareVersion.addEventListener("change",function(){
     fareVersionValue=fareVersion.options[fareVersion.selectedIndex].value;
     if (fareVersionValue==1){
@@ -279,11 +288,11 @@ function ballJackpot(){
             height: 300,
         },
     });
-    let resultValue=1;
+    let resultValue=2;
     spinInterval=setInterval(function(){
         wheelChart.options.rotation=wheelChart.options.rotation+resultValue;
         wheelChart.update();
-    },Math.floor(Math.random()*5)+1);
+    },Math.random()*5+1);
 };
 stopWheel.addEventListener("click",function(){
     stopBallJackpot=true;
