@@ -44,6 +44,8 @@
                 background-color: #ECECEC;
                 margin: .2rem;
                 font-size: 5rem;
+                text-align: center;
+
             }
             input[type="button"]{
                 background-color: #4CB9E5;
@@ -51,6 +53,8 @@
                 border-radius: 5px;
                 font-family: tahoma;
                 font-size: 1rem;
+                margin-top: 1rem;
+                padding: .3rem;
             }
             #prizes{
                 font-family: tahoma;
@@ -60,6 +64,7 @@
             }
             li{
                 text-align: center;
+                margin: auto;
             }
         </style>
     </head>
@@ -92,7 +97,7 @@
             </select>
             <div id="ballJackpot" style="display: none;">
                 <h2>Stop the ball on the wheel's prize areas</h2>
-                <canvas id="wheel" width="500" height="500"></canvas>
+                <canvas id="wheel" width="400" height="400"></canvas>
                 <div>
                     <input type="button" id="stopBall" value="STOP BALL">
                 </div>

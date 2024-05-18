@@ -14,7 +14,7 @@ let allowedJackpots;
 let shiftingInterval;
 let stopBallJackpot=false;
 let spinChart;
-let spinExecutionLog;
+let spinExecutionLog=0;
 fareVersion.addEventListener("change",function(){
     fareVersionValue=fareVersion.options[fareVersion.selectedIndex].value;
     if (fareVersionValue==1){
@@ -51,6 +51,7 @@ jackpotVersion.addEventListener("change",function(){
 stopNumberGroup.addEventListener("click",stopNum);
 function stopNum(){
     stopNumJackpot=true;
+    stopNumberGroup.disabled=true;
     prizeOutcome();
 }
 replayGame.addEventListener("click",function(){
@@ -210,15 +211,18 @@ function endGame(){
         }
     },3000);
 }
-stopNumberGroup.addEventListener("mouseover",function(){
-    stopNumberGroup.style.fontSize="1.2rem";
-});
-stopNumberGroup.addEventListener("mouseout",function(){
-    stopNumberGroup.style.fontSize="1rem";
-});
+// stopNumberGroup.addEventListener("mouseover",function(){
+//     stopNumberGroup.style.fontSize="1.2rem";
+// });
+// stopNumberGroup.addEventListener("mouseout",function(){
+//     stopNumberGroup.style.fontSize="1rem";
+// });
 function ballJackpot(){
     spinExecutionLog++;
     stopBallJackpot=false;
+    document.getElementById("numberJackpot").style.display="none";
+    document.getElementById("ballJackpot").style.display="block";
+    document.getElementById("ballJackpot-returnMessage").innerHTML="";
     const spinWheel=document.getElementById("wheel");
     const rotationValues=[
         {minDeg: 0, maxDeg: 60, value: 1},
@@ -228,15 +232,16 @@ function ballJackpot(){
         {minDeg: 241, maxDeg: 300, value: 1},
         {minDeg: 301, maxDeg: 360, value: 1},
     ]
-    const data=[1,4,1.5,4,2,4];
+    const data=[0.5,4,1,4,2,4];
     let pieColors=[];
     let oppositePieColors=[];
     for (let i=0;i<6;i++){
-        pieColors.push(`#${Math.floor(Math.random()*16777215).toString(16)}`);
+        let randomColor=`#${Math.floor(Math.random()*16777215).toString(16)}`;
+        let opColor=`#${0xFFFFFF^parseInt(randomColor.replace("#",""),16).toString(16).padStart(6,"0")}`;
+        pieColors.push(randomColor);
+        oppositePieColors.push(opColor);
+        console.log(oppositePieColors);
     }
-    pieColors.forEach(function(color){
-        oppositePieColors.push(color)
-    })
     if (spinExecutionLog>1){
         myCharts.destroy();
     }
@@ -244,7 +249,7 @@ function ballJackpot(){
         plugins: [ChartDataLabels],
         type: 'pie',
         data: {
-            labels: ["1st Prize", "Nothing", "2nd Prize", "Nothing", "3rd Pize", "Nothing"],
+            labels: ["$10", "Nothing", "$5", "Nothing", "$2", "Nothing"],
             datasets:[
                 {
                     backgroundColor: pieColors,
@@ -259,11 +264,14 @@ function ballJackpot(){
                 tooltip: false,
                 legend: {display: false},
                 datalabels:{
-                    color: "#000000",
                     formatter: function(_,context){
                         return context.chart.data.labels[context.dataIndex];
                     },
-                    font: {size: 23},
+                    color: "#000",
+                    font: {
+                        size: 20,
+                        family: "Tahoma",
+                    },
                 }
             }
         }
@@ -271,6 +279,7 @@ function ballJackpot(){
 };
 function numberJackpot(){
     stopNumJackpot=false;
+    stopNumberGroup.disabled=false;
     document.getElementById("numberJackpot").style.display="block";
     document.getElementById("ballJackpot").style.display="none";
     document.getElementById("numberJackpot-returnMessage").innerHTML="";
