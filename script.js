@@ -265,18 +265,19 @@ function ballJackpot(){
                     formatter: function(_,context){
                         return context.chart.data.labels[context.dataIndex];
                     },
-                    color: "#000",
                     font: {
                         size: 15,
                         family: "tahoma",
                     },
+                    color: "#000",
+                    backgroundColor: "#FFF",
                 }
             },
             width: 300,
             height: 300,
         },
     });
-    let resultValue=3;
+    let resultValue=1;
     spinInterval=setInterval(function(){
         wheelChart.options.rotation=wheelChart.options.rotation+resultValue;
         wheelChart.update();

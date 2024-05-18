@@ -75,6 +75,13 @@
                 text-align: center;
                 margin: auto;
             }
+            #wheelContainer{
+                box-sizing: border-box;
+                width: 60%;
+                height: 60%;
+                text-align: center;
+                margin: auto;
+            }
         </style>
     </head>
     <body>
@@ -109,7 +116,9 @@
             </select>
             <div id="ballJackpot" style="display: none;">
                 <h2>Stop the ball on the wheel's prize areas</h2>
-                <canvas id="wheel"></canvas>
+                <div id="wheelContainer">
+                    <canvas id="wheel"></canvas>
+                </div>
                 <div>
                     <input type="button" id="stopBall" value="STOP BALL">
                 </div>
