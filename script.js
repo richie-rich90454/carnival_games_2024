@@ -16,6 +16,8 @@ let stopBallJackpot=false;
 let spinChart;
 let spinExecutionLog=0;
 let spinInterval;
+const spinWheel=document.getElementById("wheel");
+let wheelChart;
 fareVersion.addEventListener("change",function(){
     fareVersionValue=fareVersion.options[fareVersion.selectedIndex].value;
     if (fareVersionValue==1){
@@ -220,12 +222,12 @@ function endGame(){
 //     stopNumberGroup.style.fontSize="1rem";
 // });
 function ballJackpot(){
+    clearInterval(spinInterval);
     spinExecutionLog++;
     stopBallJackpot=false;
     document.getElementById("numberJackpot").style.display="none";
     document.getElementById("ballJackpot").style.display="block";
     document.getElementById("ballJackpot-returnMessage").innerHTML="";
-    const spinWheel=document.getElementById("wheel");
     const rotationValues=[
         {minDeg: 0, maxDeg: 60, value: 1},
         {minDeg: 61, maxDeg: 120, value: 1},
