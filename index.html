@@ -6,8 +6,6 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <style>
             body{
-                margin: 0;
-                padding: 0;
                 word-wrap: break-word;
                 font-family: tahoma;
             }
@@ -22,6 +20,7 @@
             #main-div{
                 margin: auto;
                 text-align: center;
+                border-radius: .45rem;
                 border: 3px solid #000;
                 background-color: #83B0BE;
                 width: 50%;
@@ -80,13 +79,13 @@
     </head>
     <body>
         <audio id="play-audio">
-            <source src="utAudio.MP3" type="audio/mp3">
+            <source src="cash-register-bell-and-coins.mp3" type="audio/mp3">
         </audio>
         <div id="main-div">
             <h1>The Animated Jackpot</h1>
             <div id="gameOver" style="display: none;">
                 <h2 id="gameOverMsg">GAME OVER</h2>
-                <h1 id="you-won" style="display: none;">You won:</h1>
+                <h2 id="you-won" style="display: none;">You won:</h2>
                 <ul id="prizes" style="display: none;"></ul>
                 <p id="totalPrizes"></p>
                 <div id="no-prize-return"></div>
