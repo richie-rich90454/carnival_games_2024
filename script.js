@@ -200,7 +200,7 @@ function endGame(){
                 let thirdPrizeItem=$("<li>").html(`${thirdCounter}x3<sup>rd</sup> (${thirdCounter*2} tokens in total)`).hide().appendTo("#prizes").fadeIn(1000);
             }
             document.getElementById("totalPrizes").style.display="none";
-            document.getElementById("play-audio").play();
+            document.getElementById("play-end-audio").play();
             document.getElementById("totalPrizes").innerHTML=`The total amount of tokens you gained is ${totalCounter}`;
                 setTimeout(function(){$("#totalPrizes").fadeIn(1000)
             },1000);
