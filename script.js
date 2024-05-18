@@ -63,6 +63,7 @@ replayGame.addEventListener("click",function(){
     jackpotVersion.selectedIndex=0;
 });
 function prizeOutcome(){
+    document.getElementById("play-audio").play();
     if (allowedJackpots>0){
         let userStoppedIndex=parseInt(`${document.getElementById("num-hundreds").innerHTML}${document.getElementById("num-tens").innerHTML}${document.getElementById("num-ones").innerHTML}`);
         let actualJackpotNumber=randomNumberArray[0]*100+randomNumberArray[1]*10+randomNumberArray[2];
