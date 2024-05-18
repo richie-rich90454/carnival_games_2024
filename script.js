@@ -267,7 +267,7 @@ function ballJackpot(){
                     color: "#000",
                     font: {
                         size: 15,
-                        family: "Tahoma",
+                        family: "tahoma",
                     },
                 }
             },
@@ -316,6 +316,11 @@ function iterateNumber(){
         setTimeout(iterateNumber,timeoutNumber);
     }
 };
+$(document).ready(function(){
+    setInterval(function(){
+        $("#main-div").css("box-shadow",`6px 6px 6px 6px rgba(${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, .45)`);
+    },500);
+});
     // function valueGenerator(angleValue){
     //     for (let i=0;i<rotationValues.length;i++){
     //         if (angleValue>=rotationValues[i].minDeg&&angleValue<=rotationValues[i].maxDeg){
