@@ -2,7 +2,7 @@ let fareVersion=document.getElementById("fareVersion");
 let packetVersion=document.getElementById("packetVersion");
 let jackpotVersion=document.getElementById("jackpotVersion");
 let stopNumberGroup=document.getElementById("stopNumberGroup");
-let stopWheel=document.getElementById("stopBall");
+let stopWheel=document.getElementById("stopWheel");
 let replayGame=document.getElementById("replay");
 let spinWheel=document.getElementById("wheel");
 let spinPointerContext=document.getElementById("pointer").getContext("2d");
@@ -14,7 +14,7 @@ let randomNumberArray=[];
 let prizesArray=[];
 let allowedJackpots;
 let shiftingInterval;
-let stopBallJackpot=false;
+let stopWheelJackpot=false;
 let spinChart;
 let spinExecutionLog=0;
 let spinInterval;
@@ -27,6 +27,14 @@ spinPointerContext.lineTo(0,25);
 spinPointerContext.fillStyle="#000";
 spinPointerContext.fill();
 spinPointerContext.stroke();
+const rotationValues=[
+    {minDeg: 0, maxDeg: 60, value: "$10"},
+    {minDeg: 61, maxDeg: 120, value: "Nothing"},
+    {minDeg: 121, maxDeg: 180, value: "$5"},
+    {minDeg: 181, maxDeg: 240, value: "Nothing"},
+    {minDeg: 241, maxDeg: 300, value: "$2"},
+    {minDeg: 301, maxDeg: 360, value: "Nothing"},
+]
 fareVersion.addEventListener("change",function(){
     fareVersionValue=fareVersion.options[fareVersion.selectedIndex].value;
     if (fareVersionValue==1){
@@ -53,8 +61,8 @@ packetVersion.addEventListener("change",function(){
     jackpotVersion.style.display="block";
 });
 jackpotVersion.addEventListener("change",function(){
-    if (jackpotVersion.options[jackpotVersion.selectedIndex].value=="ball"){
-        ballJackpot();
+    if (jackpotVersion.options[jackpotVersion.selectedIndex].value=="wheel"){
+        wheelJackpot();
     }
     else{
         numberJackpot();
@@ -230,23 +238,16 @@ function endGame(){
 // stopNumberGroup.addEventListener("mouseout",function(){
 //     stopNumberGroup.style.fontSize="1rem";
 // });
-function ballJackpot(){
+function wheelJackpot(){
     clearInterval(spinInterval);
     spinExecutionLog++;
-    stopBallJackpot=false;
+    stopWheelJackpot=false;
     document.getElementById("numberJackpot").style.display="none";
-    document.getElementById("ballJackpot").style.display="block";
-    document.getElementById("ballJackpot-returnMessage").innerHTML="";
-    const rotationValues=[
-        {minDeg: 0, maxDeg: 60, value: 1},
-        {minDeg: 61, maxDeg: 120, value: 1},
-        {minDeg: 121, maxDeg: 180, value: 1},
-        {minDeg: 181, maxDeg: 240, value: 1},
-        {minDeg: 241, maxDeg: 300, value: 1},
-        {minDeg: 301, maxDeg: 360, value: 1},
-    ]
-    const data=[0.5,4,1,4,2,4];
+    document.getElementById("wheelJackpot").style.display="block";
+    document.getElementById("wheelJackpot-returnMessage").innerHTML="";
+    const data=[1,1,1,1,1,1];
     let pieColors=[];
+    const wheelLabels=["$10", "Nothing", "$5", "Nothing", "$2", "Nothing"];
     for (let i=0;i<6;i++){
         let randomColor=`#${Math.floor(Math.random()*16777215).toString(16)}`;
         pieColors.push(randomColor);
@@ -258,7 +259,7 @@ function ballJackpot(){
         plugins: [ChartDataLabels],
         type: 'pie',
         data: {
-            labels: ["$10", "Nothing", "$5", "Nothing", "$2", "Nothing"],
+            labels: wheelLabels,
             datasets:[
                 {
                     backgroundColor: pieColors,
@@ -292,18 +293,45 @@ function ballJackpot(){
     spinInterval=setInterval(function(){
         wheelChart.options.rotation=wheelChart.options.rotation+resultValue;
         wheelChart.update();
+        if (stopWheelJackpot==true){
+            clearInterval(spinInterval);
+            console.log("Stopped at "+getSegmentValue(wheelChart.options.rotation));
+            setTimeout(function(){
+                wheelJackpot();
+            },1000);
+        }
     },Math.random()*5+1);
 };
+function getSegmentValue(rotationA){
+    let trueA=rotationA%360;
+    if (trueA<0){
+        trueA=trueA+360;
+    }
+    for (let i=0;i<rotationValues.length;i++){
+        if (trueA>=rotationValues[i].minDeg&&trueA<=rotationValues[i].maxDeg){
+            if (i==0||i==2||i==4){
+                return "nothing";
+            }
+            else if (i==1){
+                return "10";
+            }
+            else if (i==3){
+                return "2";
+            }
+            else if (i==5){
+                return "5";
+            }
+        }
+    }
+}
 stopWheel.addEventListener("click",function(){
-    stopBallJackpot=true;
-    clearInterval(spinInterval);
-    setTimeout(ballJackpot,1000);
+    stopWheelJackpot=true;
 });
 function numberJackpot(){
     stopNumJackpot=false;
     stopNumberGroup.disabled=false;
     document.getElementById("numberJackpot").style.display="block";
-    document.getElementById("ballJackpot").style.display="none";
+    document.getElementById("wheelJackpot").style.display="none";
     document.getElementById("numberJackpot-returnMessage").innerHTML="";
     for (let i=0;i<3;i++){
         let randomNumber=Math.floor(Math.random()*10);

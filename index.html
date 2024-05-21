@@ -87,7 +87,7 @@
                 position: absolute;
                 width: 4rem;
                 top: 40%;
-                margin-left: 29rem;
+                margin-left: 29%;
             }
         </style>
     </head>
@@ -118,11 +118,11 @@
             </select>
             <select id="jackpotVersion" style="display: none;">
                 <option value="" disabled selected>Please select a Jackpot game you want to play</option>
-                <option value="ball">Ball Mode</option>
+                <option value="wheel">Wheel Mode</option>
                 <option value="number">Number Mode</option>
             </select>
-            <div id="ballJackpot" style="display: none;">
-                <h2>Stop the ball on the wheel's prize areas</h2>
+            <div id="wheelJackpot" style="display: none;">
+                <h3>Stop the wheel so that the pointer points to the prize areas</h3>
                 <div style="display: flex; width: 100%; height: 100%; box-sizing: border-box;">
                     <div id="wheelContainer">
                         <canvas id="wheel"></canvas>
@@ -132,9 +132,9 @@
                     </div>
                 </div>
                 <div>
-                    <input type="button" id="stopBall" value="STOP BALL">
+                    <input type="button" id="stopWheel" value="STOP WHEEL">
                 </div>
-                <div id="ballJackpot-returnMessage"></div>
+                <div id="wheelJackpot-returnMessage"></div>
             </div>
             <div id="numberJackpot" style="display: none;">
                 <h2>GET THE NUMBER ON THE ROLL WHEEL</h2>
