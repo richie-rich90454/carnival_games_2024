@@ -2,10 +2,7 @@ let fareVersion=document.getElementById("fareVersion");
 let packetVersion=document.getElementById("packetVersion");
 let jackpotVersion=document.getElementById("jackpotVersion");
 let stopNumberGroup=document.getElementById("stopNumberGroup");
-let stopWheel=document.getElementById("stopWheel");
 let replayGame=document.getElementById("replay");
-let spinWheel=document.getElementById("wheel");
-let spinPointerContext=document.getElementById("pointer").getContext("2d");
 let charNumber=document.getElementById("notslotJackpot-charNumber");
 let genNotSlotBtn=document.getElementById("notslotJackpot-genNotSlot");
 let notSlotCharArray=[];
@@ -17,27 +14,6 @@ let randomNumberArray=[];
 let prizesArray=[];
 let allowedJackpots;
 let shiftingInterval;
-let stopWheelJackpot=false;
-let spinChart;
-let spinExecutionLog=0;
-let spinInterval;
-let wheelChart;
-spinPointerContext.beginPath();
-spinPointerContext.moveTo(0,25);
-spinPointerContext.lineTo(25,50);
-spinPointerContext.lineTo(25,0);
-spinPointerContext.lineTo(0,25);
-spinPointerContext.fillStyle="#000";
-spinPointerContext.fill();
-spinPointerContext.stroke();
-const rotationValues=[
-    {minDeg: 0, maxDeg: 60, value: "$10"},
-    {minDeg: 61, maxDeg: 120, value: "Nothing"},
-    {minDeg: 121, maxDeg: 180, value: "$5"},
-    {minDeg: 181, maxDeg: 240, value: "Nothing"},
-    {minDeg: 241, maxDeg: 300, value: "$2"},
-    {minDeg: 301, maxDeg: 360, value: "Nothing"},
-];
 $(document).ready(function(){
     setInterval(function(){
         $("#main-div").css("box-shadow",`6px 6px 6px 6px rgba(${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, .45)`);
@@ -69,10 +45,7 @@ packetVersion.addEventListener("change",function(){
     jackpotVersion.style.display="block";
 });
 jackpotVersion.addEventListener("change",function(){
-    if (jackpotVersion.options[jackpotVersion.selectedIndex].value=="wheel"){
-        wheelJackpot();
-    }
-    else if (jackpotVersion.options[jackpotVersion.selectedIndex].value=="notslot"){
+    if (jackpotVersion.options[jackpotVersion.selectedIndex].value=="notslot"){
         document.getElementById("numberJackpot").style.display="none";
         document.getElementById("notslotJackpot").style.display="block";
     }
@@ -84,9 +57,6 @@ stopNumberGroup.addEventListener("click",function(){
     stopNumJackpot=true;
     stopNumberGroup.disabled=true;
     numberprizeOutcome();
-});
-stopWheel.addEventListener("click",function(){
-    stopWheelJackpot=true;
 });
 replayGame.addEventListener("click",function(){
     document.getElementById("gameOver").style.display="none";
@@ -268,7 +238,6 @@ function createSlot(){
         for (let i=0;i<notSlotCharArray.length;i++){
             FirstPrizeGroup+=` ${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]}`;
         }
-        
     }
 }
 function endGame(){
@@ -328,90 +297,4 @@ function endGame(){
             document.getElementById("no-prize-return").innerHTML="Unfortunately, you did not win any prizes.";
         }
     },3000);
-}
-function wheelJackpot(){
-    clearInterval(spinInterval);
-    spinExecutionLog++;
-    stopWheelJackpot=false;
-    document.getElementById("numberJackpot").style.display="none";
-    document.getElementById("wheelJackpot").style.display="block";
-    document.getElementById("wheelJackpot-returnMessage").innerHTML="";
-    const data=[1,1,1,1,1,1];
-    let pieColors=[];
-    const wheelLabels=["$10", "Nothing", "$5", "Nothing", "$2", "Nothing"];
-    for (let i=0;i<6;i++){
-        let randomColor=`#${Math.floor(Math.random()*16777215).toString(16)}`;
-        pieColors.push(randomColor);
-    }
-    if (spinExecutionLog>1){
-        wheelChart.destroy();
-    }
-    wheelChart=new Chart(spinWheel,{
-        plugins: [ChartDataLabels],
-        type: 'pie',
-        data: {
-            labels: wheelLabels,
-            datasets:[
-                {
-                    backgroundColor: pieColors,
-                    data: data,
-                }
-            ]
-        },
-        options:{
-            responsive: true,
-            animation: {duration: 0},
-            plugins:{
-                tooltip: false,
-                legend: {display: false},
-                datalabels:{
-                    formatter: function(_,context){
-                        return context.chart.data.labels[context.dataIndex];
-                    },
-                    font: {
-                        size: 15,
-                        family: "tahoma",
-                    },
-                    color: "#000",
-                    backgroundColor: "#FFF",
-                }
-            },
-            width: 300,
-            height: 300,
-        },
-    });
-    let resultValue=2;
-    spinInterval=setInterval(function(){
-        wheelChart.options.rotation=wheelChart.options.rotation+resultValue;
-        wheelChart.update();
-        if (stopWheelJackpot==true){
-            clearInterval(spinInterval);
-            console.log("Stopped at "+getSegmentValue(wheelChart.options.rotation));
-            setTimeout(function(){
-                wheelJackpot();
-            },1000);
-        }
-    },Math.random()*5+1);
-};
-function getSegmentValue(rotationA){
-    let trueA=rotationA%360;
-    if (trueA<0){
-        trueA=trueA+360;
-    }
-    for (let i=0;i<rotationValues.length;i++){
-        if (trueA>=rotationValues[i].minDeg&&trueA<=rotationValues[i].maxDeg){
-            if (i==0||i==2||i==4){
-                return "nothing";
-            }
-            else if (i==1){
-                return "10";
-            }
-            else if (i==3){
-                return "2";
-            }
-            else if (i==5){
-                return "5";
-            }
-        }
-    }
 }

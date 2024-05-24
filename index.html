@@ -82,20 +82,6 @@
                 text-align: center;
                 margin: auto;
             }
-            #wheelContainer{
-                top: 0;
-                padding: 0;
-                box-sizing: border-box;
-                width: 60%;
-                height: 60%;
-                text-align: center;
-            }
-            #pointerContainer{
-                position: absolute;
-                width: 4rem;
-                top: 40%;
-                margin-left: 29%;
-            }
             .charEnteryClass{
                 margin-top: 1rem;
                 border-radius: .223rem;
@@ -130,25 +116,9 @@
             </select>
             <select id="jackpotVersion" style="display: none;">
                 <option value="" disabled selected>Please select a Jackpot game you want to play</option>
-                <option value="wheel">Wheel Mode</option>
                 <option value="notslot">Not Slot Mode</option>
                 <option value="number">Number Mode</option>
             </select>
-            <div id="wheelJackpot" style="display: none;">
-                <h3>Stop the wheel so that the pointer points to the prize areas</h3>
-                <div style="display: flex; width: 100%; height: 100%; box-sizing: border-box;">
-                    <div id="wheelContainer">
-                        <canvas id="wheel"></canvas>
-                    </div>
-                    <div id="pointerContainer">
-                        <canvas id="pointer" width="100" height="50"></canvas>
-                    </div>
-                </div>
-                <div>
-                    <input type="button" id="stopWheel" value="STOP WHEEL">
-                </div>
-                <div id="wheelJackpot-returnMessage"></div>
-            </div>
             <div id="notslotJackpot" style="display: none;">
                 <input type="number" min="3" max="5" id="notslotJackpot-charNumber" placeholder="Enter the amount of characters you want in the slots (3-5)">
                 <div id="notslotcharGroup">
@@ -164,7 +134,7 @@
                 <div id="notslotJackpot-returnMessage"></div>
             </div>
             <div id="numberJackpot" style="display: none;">
-                <h2>GET THE NUMBER ON THE ROLL WHEEL</h2>
+                <h2>GET THE NUMBER ON THE NUMBER GROUP</h2>
                 <h3 id="numberJackpot-randomNum"></h3>
                 <div id="numberGroup">
                     <div id="num-hundreds" class="nums"></div>
