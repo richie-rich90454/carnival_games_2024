@@ -5,6 +5,7 @@ let stopNumberGroup=document.getElementById("stopNumberGroup");
 let replayGame=document.getElementById("replay");
 let charNumber=document.getElementById("notslotJackpot-charNumber");
 let genNotSlotBtn=document.getElementById("notslotJackpot-genNotSlot");
+let startNotSlotGameBtn=document.getElementById("startNotSlotGame");
 let notSlotCharArray=[];
 let fareVersionValue=0;
 let packetVersionValue=0;
@@ -69,20 +70,24 @@ charNumber.addEventListener("keyup",function(event){
     if (event.key==="Enter"){
     gennotSlotGroup(charNumber.valueAsNumber);
     charNumber.style.display="none";
-    charNumber.value="";
     }
 });
 genNotSlotBtn.addEventListener("click",function(){
     let ischarBlank=false;
     for (let i=1;i<=charNumber.value;i++){
-        if (document.getElementById(`charEntry${i}`).value=""){
+        if (document.getElementById(`charEntry${i}`).value==""){
             ischarBlank=false;
             break;
         }
+        notSlotCharArray[i-1]=document.getElementById(`charEntry${i}`).value;
     }
     if (ischarBlank==false){
+        charNumber.value="";
         createSlot();
     }
+});
+startNotSlotGameBtn.addEventListener("click",function(){
+
 });
 function numberJackpot(){
     stopNumJackpot=false;
@@ -231,14 +236,15 @@ function gennotSlotGroup(charNumberValue){
 }
 function createSlot(){
     let SpecificWinningGroups=document.getElementById("notslotprizenoticeGroup-list");
-    let FirstPrizeGroup="";
-    let SecondPrizeGroup="";
-    let ThirdPrizeGroup="";
-    for (let i=0;i<4;i++){
-        for (let i=0;i<notSlotCharArray.length;i++){
-            FirstPrizeGroup+=` ${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]}`;
-        }
+    let FirstPrizeGroup="1<sup>st</sup> prize combinations are: ";
+    let ThirdPrizeGroup=`3<sup>rd</sup> prize combinations are the combinations mentioned above with 1 less fitting character. Such as ${notSlotCharArray[0]}|${notSlotCharArray[0]}|${notSlotCharArray[0]}|x`;
+    for (let i=0;i<notSlotCharArray.length;i++){
+        FirstPrizeGroup+=`${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]} `;
     }
+    $("<li>").html(FirstPrizeGroup).hide().appendTo(SpecificWinningGroups).fadeIn(1000);
+    $("<li>").html(ThirdPrizeGroup).hide().appendTo(SpecificWinningGroups).fadeIn(1000);
+    document.getElementById("notslotcharGroup").style.display="none";
+    document.getElementById("notslotprizenoticeGroup").style.display="block";
 }
 function endGame(){
     clearInterval(shiftingInterval);
