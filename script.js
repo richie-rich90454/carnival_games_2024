@@ -8,6 +8,7 @@ let spinWheel=document.getElementById("wheel");
 let spinPointerContext=document.getElementById("pointer").getContext("2d");
 let charNumber=document.getElementById("notslotJackpot-charNumber");
 let genNotSlotBtn=document.getElementById("notslotJackpot-genNotSlot");
+let notSlotCharArray=[];
 let fareVersionValue=0;
 let packetVersionValue=0;
 let stopNumJackpot=false;
@@ -102,7 +103,16 @@ charNumber.addEventListener("keyup",function(event){
     }
 });
 genNotSlotBtn.addEventListener("click",function(){
-
+    let ischarBlank=false;
+    for (let i=1;i<=charNumber.value;i++){
+        if (document.getElementById(`charEntry${i}`).value=""){
+            ischarBlank=false;
+            break;
+        }
+    }
+    if (ischarBlank==false){
+        createSlot();
+    }
 });
 function numberJackpot(){
     stopNumJackpot=false;
@@ -228,6 +238,7 @@ function numberprizeOutcome(){
     }
 }
 function gennotSlotGroup(charNumberValue){
+    notSlotCharArray=[];
     let charEntryContainer=document.getElementById("notslotcharGroup");
     charNumberValue=Math.floor(charNumberValue);
     if (charNumberValue<=3){
@@ -246,6 +257,18 @@ function gennotSlotGroup(charNumberValue){
         if (i==1){
             $(genNotSlotBtn).hide().fadeIn(1000);
         }
+    }
+}
+function createSlot(){
+    let SpecificWinningGroups=document.getElementById("notslotprizenoticeGroup-list");
+    let FirstPrizeGroup="";
+    let SecondPrizeGroup="";
+    let ThirdPrizeGroup="";
+    for (let i=0;i<4;i++){
+        for (let i=0;i<notSlotCharArray.length;i++){
+            FirstPrizeGroup+=` ${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]}`;
+        }
+        
     }
 }
 function endGame(){
