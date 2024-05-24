@@ -34,7 +34,12 @@ const rotationValues=[
     {minDeg: 181, maxDeg: 240, value: "Nothing"},
     {minDeg: 241, maxDeg: 300, value: "$2"},
     {minDeg: 301, maxDeg: 360, value: "Nothing"},
-]
+];
+$(document).ready(function(){
+    setInterval(function(){
+        $("#main-div").css("box-shadow",`6px 6px 6px 6px rgba(${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, .45)`);
+    },500);
+});
 fareVersion.addEventListener("change",function(){
     fareVersionValue=fareVersion.options[fareVersion.selectedIndex].value;
     if (fareVersionValue==1){
@@ -71,12 +76,14 @@ jackpotVersion.addEventListener("change",function(){
         numberJackpot();
     }
 });
-stopNumberGroup.addEventListener("click",stopNum);
-function stopNum(){
+stopNumberGroup.addEventListener("click",function(){
     stopNumJackpot=true;
     stopNumberGroup.disabled=true;
-    prizeOutcome();
-}
+    numberprizeOutcome();
+});
+stopWheel.addEventListener("click",function(){
+    stopWheelJackpot=true;
+});
 replayGame.addEventListener("click",function(){
     document.getElementById("gameOver").style.display="none";
     document.getElementById("fareVersion").style.display="block";
@@ -84,11 +91,21 @@ replayGame.addEventListener("click",function(){
     packetVersion.selectedIndex=0;
     jackpotVersion.selectedIndex=0;
 });
-function notSlot(){
-    let slotQuantityValue=document.getElementById("notslotNumber");
-    slotQuantityValue.styled.display="none";
-}
-function prizeOutcome(){
+function numberJackpot(){
+    stopNumJackpot=false;
+    stopNumberGroup.disabled=false;
+    document.getElementById("numberJackpot").style.display="block";
+    document.getElementById("wheelJackpot").style.display="none";
+    document.getElementById("numberJackpot-returnMessage").innerHTML="";
+    for (let i=0;i<3;i++){
+        let randomNumber=Math.floor(Math.random()*10);
+        randomNumberArray[i]=randomNumber;
+    }
+    document.getElementById("numberJackpot-randomNum").textContent=`${randomNumberArray[0]}${randomNumberArray[1]}${randomNumberArray[2]}`;
+    iterateNumberIndex=randomNumberArray[0]*100;
+    iterateNumber();
+};
+function numberprizeOutcome(){
     if (allowedJackpots>0){
         let userStoppedIndex=parseInt(`${document.getElementById("num-hundreds").innerHTML}${document.getElementById("num-tens").innerHTML}${document.getElementById("num-ones").innerHTML}`);
         let actualJackpotNumber=randomNumberArray[0]*100+randomNumberArray[1]*10+randomNumberArray[2];
@@ -109,7 +126,7 @@ function prizeOutcome(){
                 document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
             }
             if (packetVersionValue==1){
-                endGame();
+                numberendGame();
                 return;
             }            
         }
@@ -133,7 +150,7 @@ function prizeOutcome(){
                 document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
             }
             if (packetVersionValue==1){
-                endGame();
+                numberendGame();
                 return;
             }
         }
@@ -152,7 +169,7 @@ function prizeOutcome(){
                     setTimeout(numberJackpot,1000);
                 }
                 if (packetVersionValue==1){
-                    setTimeout(endGame,500);
+                    setTimeout(numberendGame,500);
                     return;
                 }
             }
@@ -181,7 +198,7 @@ function prizeOutcome(){
         packetVersionValue--;
     }
 }
-function endGame(){
+function numberendGame(){
     clearInterval(shiftingInterval);
     setTimeout(function(){
         document.getElementById("prizes").innerHTML="";
@@ -239,12 +256,9 @@ function endGame(){
         }
     },3000);
 }
-// stopNumberGroup.addEventListener("mouseover",function(){
-//     stopNumberGroup.style.fontSize="1.2rem";
-// });
-// stopNumberGroup.addEventListener("mouseout",function(){
-//     stopNumberGroup.style.fontSize="1rem";
-// });
+function notSlot(){
+
+}
 function wheelJackpot(){
     clearInterval(spinInterval);
     spinExecutionLog++;
@@ -331,23 +345,6 @@ function getSegmentValue(rotationA){
         }
     }
 }
-stopWheel.addEventListener("click",function(){
-    stopWheelJackpot=true;
-});
-function numberJackpot(){
-    stopNumJackpot=false;
-    stopNumberGroup.disabled=false;
-    document.getElementById("numberJackpot").style.display="block";
-    document.getElementById("wheelJackpot").style.display="none";
-    document.getElementById("numberJackpot-returnMessage").innerHTML="";
-    for (let i=0;i<3;i++){
-        let randomNumber=Math.floor(Math.random()*10);
-        randomNumberArray[i]=randomNumber;
-    }
-    document.getElementById("numberJackpot-randomNum").textContent=`${randomNumberArray[0]}${randomNumberArray[1]}${randomNumberArray[2]}`;
-    iterateNumberIndex=randomNumberArray[0]*100;
-    iterateNumber();
-};
 function iterateNumber(){
     if (stopNumJackpot==false){
         let actualJackpotNumber=document.getElementById("numberJackpot-randomNum").innerHTML;
@@ -364,36 +361,3 @@ function iterateNumber(){
         setTimeout(iterateNumber,timeoutNumber);
     }
 };
-$(document).ready(function(){
-    setInterval(function(){
-        $("#main-div").css("box-shadow",`6px 6px 6px 6px rgba(${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, .45)`);
-    },500);
-});
-    // function valueGenerator(angleValue){
-    //     for (let i=0;i<rotationValues.length;i++){
-    //         if (angleValue>=rotationValues[i].minDeg&&angleValue<=rotationValues[i].maxDeg){
-    //             stopWheel.disabled=false;
-    //             break;
-    //         }
-    //     }
-    // }
-    // let count=0;
-    // let resultValue=101;
-    // stopWheel.addEventListener("click",function(){
-
-    // });
-    // let wheelCanvas=document.getElementById("wheel");
-    // let wheelContext=wheelCanvas.getContext('2d');
-    // wheelContext.beginPath();
-    // wheelContext.arc(250, 250, 200, 0, 2*Math.PI);
-    // wheelContext.fillStyle="#F00";
-    // wheelContext.fill();
-    // wheelContext.stroke();
-    // wheelContext.beginPath();
-    // wheelContext.moveTo(450,250);
-    // wheelContext.lineTo(50,250);
-    // wheelContext.stroke();
-    // wheelContext.beginPath();
-    // wheelContext.moveTo(250,50);
-    // wheelContext.lineTo(250,450);
-    // wheelContext.stroke();
