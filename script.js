@@ -4,6 +4,7 @@ let jackpotVersion=document.getElementById("jackpotVersion");
 let stopNumberGroup=document.getElementById("stopNumberGroup");
 let replayGame=document.getElementById("replay");
 let charNumber=document.getElementById("notslotJackpot-charNumber");
+let charNumberValue;
 let genNotSlotBtn=document.getElementById("notslotJackpot-genNotSlot");
 let startNotSlotGameBtn=document.getElementById("startNotSlotGame");
 let notSlotCharArray=[];
@@ -68,18 +69,22 @@ replayGame.addEventListener("click",function(){
 });
 charNumber.addEventListener("keyup",function(event){
     if (event.key==="Enter"){
-    gennotSlotGroup(charNumber.valueAsNumber);
-    charNumber.style.display="none";
+        charNumberValue=charNumber.valueAsNumber;
+        gennotSlotGroup();
+        charNumber.style.display="none";
     }
 });
 genNotSlotBtn.addEventListener("click",function(){
     let ischarBlank=false;
-    for (let i=1;i<=charNumber.value;i++){
-        if (document.getElementById(`charEntry${i}`).value==""){
-            ischarBlank=false;
+    notSlotCharArray=[];
+    for (let i=1;i<=charNumberValue;i++){
+        let charEntryValue=document.getElementById(`charEntry${i}`).value
+        if (charEntryValue==""){
+            ischarBlank=true;
             break;
         }
-        notSlotCharArray[i-1]=document.getElementById(`charEntry${i}`).value;
+        notSlotCharArray[i-1]=charEntryValue;
+        console.log(notSlotCharArray[i-1]);
     }
     if (ischarBlank==false){
         charNumber.value="";
@@ -212,8 +217,7 @@ function numberprizeOutcome(){
         packetVersionValue--;
     }
 }
-function gennotSlotGroup(charNumberValue){
-    notSlotCharArray=[];
+function gennotSlotGroup(){
     let charEntryContainer=document.getElementById("notslotcharGroup");
     charNumberValue=Math.floor(charNumberValue);
     if (charNumberValue<=3){
@@ -237,7 +241,7 @@ function gennotSlotGroup(charNumberValue){
 function createSlot(){
     let SpecificWinningGroups=document.getElementById("notslotprizenoticeGroup-list");
     let FirstPrizeGroup="1<sup>st</sup> prize combinations are: ";
-    let ThirdPrizeGroup=`3<sup>rd</sup> prize combinations are the combinations mentioned above with 1 less fitting character. Such as ${notSlotCharArray[0]}|${notSlotCharArray[0]}|${notSlotCharArray[0]}|x`;
+    let ThirdPrizeGroup=`3<sup>rd</sup> prize combinations are the combinations mentioned above with 1 less same character. Such as ${notSlotCharArray[0]}|${notSlotCharArray[0]}|${notSlotCharArray[0]}|x`;
     for (let i=0;i<notSlotCharArray.length;i++){
         FirstPrizeGroup+=`${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]} `;
     }
