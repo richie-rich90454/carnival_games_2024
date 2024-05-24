@@ -24,7 +24,7 @@
                 border: 3px solid #000;
                 background-color: #83B0BE;
                 width: 50%;
-                min-height: 50rem;
+                min-height: 45rem;
                 transition: box-shadow 0.5s;
             }
             select{
@@ -119,6 +119,7 @@
             <select id="jackpotVersion" style="display: none;">
                 <option value="" disabled selected>Please select a Jackpot game you want to play</option>
                 <option value="wheel">Wheel Mode</option>
+                <option value="notslot">Not Slot Mode</option>
                 <option value="number">Number Mode</option>
             </select>
             <div id="wheelJackpot" style="display: none;">
@@ -135,6 +136,13 @@
                     <input type="button" id="stopWheel" value="STOP WHEEL">
                 </div>
                 <div id="wheelJackpot-returnMessage"></div>
+            </div>
+            <div id="notslotJackpot" style="display: none;">
+                <!-- <input type="number" id="notslotNumber" placeholder="Enter the number of slot characters (3-5)"> -->
+                <textarea id="" cols="30" rows="10"></textarea>
+                <div id="notslotcharGroup"></div>
+                <div id="spinnerGroup"></div>
+                <div id="notslotJackpot-returnMessage"></div>
             </div>
             <div id="numberJackpot" style="display: none;">
                 <h2>GET THE NUMBER ON THE ROLL WHEEL</h2>

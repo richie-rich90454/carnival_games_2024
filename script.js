@@ -64,6 +64,9 @@ jackpotVersion.addEventListener("change",function(){
     if (jackpotVersion.options[jackpotVersion.selectedIndex].value=="wheel"){
         wheelJackpot();
     }
+    else if (jackpotVersion.options[jackpotVersion.selectedIndex].value=="notslot"){
+        notSlot();
+    }
     else{
         numberJackpot();
     }
@@ -81,6 +84,10 @@ replayGame.addEventListener("click",function(){
     packetVersion.selectedIndex=0;
     jackpotVersion.selectedIndex=0;
 });
+function notSlot(){
+    let slotQuantityValue=document.getElementById("notslotNumber");
+    slotQuantityValue.styled.display="none";
+}
 function prizeOutcome(){
     if (allowedJackpots>0){
         let userStoppedIndex=parseInt(`${document.getElementById("num-hundreds").innerHTML}${document.getElementById("num-tens").innerHTML}${document.getElementById("num-ones").innerHTML}`);
