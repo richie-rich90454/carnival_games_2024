@@ -38,7 +38,7 @@
             input{
                 display: block;
                 margin: auto;
-                text-align: center;
+                text-align: left;
             }
             h1,h2,h3,h4,h5,h6{
                 font-weight: 600;
@@ -54,7 +54,14 @@
                 margin: .2rem;
                 font-size: 5rem;
                 text-align: center;
-
+            }
+            input[type="number"]{
+                margin-top: 1rem;
+                width: 57%;
+                border: 1px solid #000;
+                border-radius: .223rem;
+                font-family: tahoma;
+                text-align: left;
             }
             input[type="button"]{
                 background-color: #4CB9E5;
@@ -65,7 +72,7 @@
                 margin-top: 1rem;
                 padding: .3rem;
             }
-            #prizes{
+            ul{
                 font-family: tahoma;
                 font-size: 1.2rem;
                 text-align: center;
@@ -88,6 +95,11 @@
                 width: 4rem;
                 top: 40%;
                 margin-left: 29%;
+            }
+            .charEnteryClass{
+                margin-top: 1rem;
+                border-radius: .223rem;
+                border: 1px solid #000;
             }
         </style>
     </head>
@@ -138,8 +150,16 @@
                 <div id="wheelJackpot-returnMessage"></div>
             </div>
             <div id="notslotJackpot" style="display: none;">
-                <textarea id="notslotElements" cols="30" rows="10"></textarea>
-                <div id="notslotcharGroup"></div>
+                <input type="number" min="3" max="5" id="notslotJackpot-charNumber" placeholder="Enter the amount of characters you want in the slots (3-5)">
+                <div id="notslotcharGroup">
+                    <input type='button' value='Generate Not Slot' id='notslotJackpot-genNotSlot' style="display: none;"></input>
+                </div>
+                <div id="notslotprizenoticeGroup">
+                    <h1>So your specific winning groups are:</h1>
+                    <ul id="notslotprizenoticeGroup-list">
+
+                    </ul>
+                </div>
                 <div id="spinnerGroup"></div>
                 <div id="notslotJackpot-returnMessage"></div>
             </div>

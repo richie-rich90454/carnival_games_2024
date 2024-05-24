@@ -6,6 +6,8 @@ let stopWheel=document.getElementById("stopWheel");
 let replayGame=document.getElementById("replay");
 let spinWheel=document.getElementById("wheel");
 let spinPointerContext=document.getElementById("pointer").getContext("2d");
+let charNumber=document.getElementById("notslotJackpot-charNumber");
+let genNotSlotBtn=document.getElementById("notslotJackpot-genNotSlot");
 let fareVersionValue=0;
 let packetVersionValue=0;
 let stopNumJackpot=false;
@@ -70,7 +72,8 @@ jackpotVersion.addEventListener("change",function(){
         wheelJackpot();
     }
     else if (jackpotVersion.options[jackpotVersion.selectedIndex].value=="notslot"){
-        notSlot();
+        document.getElementById("numberJackpot").style.display="none";
+        document.getElementById("notslotJackpot").style.display="block";
     }
     else{
         numberJackpot();
@@ -91,11 +94,21 @@ replayGame.addEventListener("click",function(){
     packetVersion.selectedIndex=0;
     jackpotVersion.selectedIndex=0;
 });
+charNumber.addEventListener("keyup",function(event){
+    if (event.key==="Enter"){
+    gennotSlotGroup(charNumber.valueAsNumber);
+    charNumber.style.display="none";
+    charNumber.value="";
+    }
+});
+genNotSlotBtn.addEventListener("click",function(){
+
+});
 function numberJackpot(){
     stopNumJackpot=false;
     stopNumberGroup.disabled=false;
     document.getElementById("numberJackpot").style.display="block";
-    document.getElementById("wheelJackpot").style.display="none";
+    document.getElementById("notslotJackpot").style.display="none";
     document.getElementById("numberJackpot-returnMessage").innerHTML="";
     for (let i=0;i<3;i++){
         let randomNumber=Math.floor(Math.random()*10);
@@ -105,6 +118,22 @@ function numberJackpot(){
     iterateNumberIndex=randomNumberArray[0]*100;
     iterateNumber();
 };
+function iterateNumber(){
+    if (stopNumJackpot==false){
+        let actualJackpotNumber=document.getElementById("numberJackpot-randomNum").innerHTML;
+        if (iterateNumberIndex==(parseInt(actualJackpotNumber[0])*100)+99){
+            iterateNumberIndex=parseInt(actualJackpotNumber[0])*100;
+        }
+        let iterateStringIndex=iterateNumberIndex.toString().padStart(3,"0");
+        document.getElementById("num-hundreds").textContent=iterateStringIndex[0];
+        document.getElementById("num-tens").textContent=iterateStringIndex[1];
+        document.getElementById("num-ones").textContent=iterateStringIndex[2];
+        iterateNumberIndex++;
+        let secondarytimeoutRandomNumber=Math.random()*91;
+        let timeoutNumber=(Math.random()*secondarytimeoutRandomNumber)+10;
+        setTimeout(iterateNumber,timeoutNumber);
+    }
+}
 function numberprizeOutcome(){
     if (allowedJackpots>0){
         let userStoppedIndex=parseInt(`${document.getElementById("num-hundreds").innerHTML}${document.getElementById("num-tens").innerHTML}${document.getElementById("num-ones").innerHTML}`);
@@ -126,7 +155,7 @@ function numberprizeOutcome(){
                 document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
             }
             if (packetVersionValue==1){
-                numberendGame();
+                endGame();
                 return;
             }            
         }
@@ -150,7 +179,7 @@ function numberprizeOutcome(){
                 document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
             }
             if (packetVersionValue==1){
-                numberendGame();
+                endGame();
                 return;
             }
         }
@@ -169,7 +198,7 @@ function numberprizeOutcome(){
                     setTimeout(numberJackpot,1000);
                 }
                 if (packetVersionValue==1){
-                    setTimeout(numberendGame,500);
+                    setTimeout(endGame,500);
                     return;
                 }
             }
@@ -198,7 +227,28 @@ function numberprizeOutcome(){
         packetVersionValue--;
     }
 }
-function numberendGame(){
+function gennotSlotGroup(charNumberValue){
+    let charEntryContainer=document.getElementById("notslotcharGroup");
+    charNumberValue=Math.floor(charNumberValue);
+    if (charNumberValue<=3){
+        charNumberValue=3;
+    }
+    else if (charNumberValue>=5){
+        charNumberValue=5;
+    }
+    for (let i=charNumberValue;i>=1;i--){
+        let charEntry=document.createElement("input");
+        charEntry.id=`charEntry${i}`;
+        charEntry.placeholder=`Enter character ${i} here`
+        charEntry.classList.add("charEnteryClass");
+        charEntry.maxLength=1;
+        $(charEntry).hide().prependTo(charEntryContainer).fadeIn(1000);
+        if (i==1){
+            $(genNotSlotBtn).hide().fadeIn(1000);
+        }
+    }
+}
+function endGame(){
     clearInterval(shiftingInterval);
     setTimeout(function(){
         document.getElementById("prizes").innerHTML="";
@@ -255,9 +305,6 @@ function numberendGame(){
             document.getElementById("no-prize-return").innerHTML="Unfortunately, you did not win any prizes.";
         }
     },3000);
-}
-function notSlot(){
-
 }
 function wheelJackpot(){
     clearInterval(spinInterval);
@@ -345,19 +392,3 @@ function getSegmentValue(rotationA){
         }
     }
 }
-function iterateNumber(){
-    if (stopNumJackpot==false){
-        let actualJackpotNumber=document.getElementById("numberJackpot-randomNum").innerHTML;
-        if (iterateNumberIndex==(parseInt(actualJackpotNumber[0])*100)+99){
-            iterateNumberIndex=parseInt(actualJackpotNumber[0])*100;
-        }
-        let iterateStringIndex=iterateNumberIndex.toString().padStart(3,"0");
-        document.getElementById("num-hundreds").textContent=iterateStringIndex[0];
-        document.getElementById("num-tens").textContent=iterateStringIndex[1];
-        document.getElementById("num-ones").textContent=iterateStringIndex[2];
-        iterateNumberIndex++;
-        let secondarytimeoutRandomNumber=Math.random()*91;
-        let timeoutNumber=(Math.random()*secondarytimeoutRandomNumber)+10;
-        setTimeout(iterateNumber,timeoutNumber);
-    }
-};
