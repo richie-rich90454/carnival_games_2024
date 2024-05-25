@@ -69,7 +69,7 @@ replayGame.addEventListener("click",function(){
     jackpotVersion.selectedIndex=0;
 });
 charNumber.addEventListener("keyup",function(event){
-    if (event.key==="Enter"){
+    if (event.key==="Enter"&&charNumber.value!=""){
         charNumberValue=charNumber.valueAsNumber;
         genNotSlotGroup();
         charNumber.style.display="none";
