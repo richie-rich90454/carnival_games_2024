@@ -11,6 +11,7 @@ let notSlotCharArray=[];
 let fareVersionValue=0;
 let packetVersionValue=0;
 let stopNumJackpot=false;
+let stopSlotJackpot=false;
 let iterateNumberIndex=1;
 let randomNumberArray=[];
 let prizesArray=[];
@@ -70,29 +71,39 @@ replayGame.addEventListener("click",function(){
 charNumber.addEventListener("keyup",function(event){
     if (event.key==="Enter"){
         charNumberValue=charNumber.valueAsNumber;
-        gennotSlotGroup();
+        genNotSlotGroup();
         charNumber.style.display="none";
     }
 });
 genNotSlotBtn.addEventListener("click",function(){
     let ischarBlank=false;
     notSlotCharArray=[];
+    let repeatingChars=0;
     for (let i=1;i<=charNumberValue;i++){
         let charEntryValue=document.getElementById(`charEntry${i}`).value
         if (charEntryValue==""){
             ischarBlank=true;
             break;
         }
-        notSlotCharArray[i-1]=charEntryValue;
+        let isSameChar=false;
+        notSlotCharArray.forEach(function(char){
+            if (char==charEntryValue){
+                isSameChar=true;
+                repeatingChars++;
+            }
+        });
+        if (isSameChar==false){
+            notSlotCharArray[i-1]=charEntryValue;
+        }
         console.log(notSlotCharArray[i-1]);
     }
-    if (ischarBlank==false){
+    if (ischarBlank==false&&charNumberValue-repeatingChars>=3){
         charNumber.value="";
-        createSlot();
+        createSlotCombinations();
     }
 });
 startNotSlotGameBtn.addEventListener("click",function(){
-
+    genNotSlotGame();
 });
 function numberJackpot(){
     stopNumJackpot=false;
@@ -217,7 +228,7 @@ function numberprizeOutcome(){
         packetVersionValue--;
     }
 }
-function gennotSlotGroup(){
+function genNotSlotGroup(){
     let charEntryContainer=document.getElementById("notslotcharGroup");
     charNumberValue=Math.floor(charNumberValue);
     if (charNumberValue<=3){
@@ -238,8 +249,11 @@ function gennotSlotGroup(){
         }
     }
 }
-function createSlot(){
-    let SpecificWinningGroups=document.getElementById("notslotprizenoticeGroup-list");
+function createSlotCombinations(){
+    notSlotCharArray=notSlotCharArray.filter(function(char){
+        return char!=undefined;
+    })
+    let SpecificWinningGroups=document.getElementById("notSlotPrizeNoticeGroup-list");
     let FirstPrizeGroup="1<sup>st</sup> prize combinations are: ";
     let ThirdPrizeGroup=`3<sup>rd</sup> prize combinations are the combinations mentioned above with 1 less same character. Such as ${notSlotCharArray[0]}|${notSlotCharArray[0]}|${notSlotCharArray[0]}|x`;
     for (let i=0;i<notSlotCharArray.length;i++){
@@ -248,16 +262,37 @@ function createSlot(){
     $("<li>").html(FirstPrizeGroup).hide().appendTo(SpecificWinningGroups).fadeIn(1000);
     $("<li>").html(ThirdPrizeGroup).hide().appendTo(SpecificWinningGroups).fadeIn(1000);
     document.getElementById("notslotcharGroup").style.display="none";
-    document.getElementById("notslotprizenoticeGroup").style.display="block";
+    document.getElementById("notSlotPrizeNoticeGroup").style.display="block";
+}
+function genNotSlotGame(){
+    document.getElementById("slotGroup").style.display="block";
+    document.getElementById("notSlotPrizeNoticeGroup").style.display="none";
+    packetVersionValue--; 
+    document.getElementById("counter1").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+    document.getElementById("counter2").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+    document.getElementById("counter3").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+    shuffleNotSlot();
+}
+function shuffleNotSlot(){
+    if (stopSlotJackpot==false){
+        document.getElementById("counter1").textContent=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+        document.getElementById("counter2").textContent=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+        document.getElementById("counter3").textContent=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+        let secondarytimeoutRandomNumber=Math.random()*191;
+        let timeoutNumber=(Math.random()*secondarytimeoutRandomNumber)+100;
+        setTimeout(shuffleNotSlot,timeoutNumber);
+    }
 }
 function endGame(){
     clearInterval(shiftingInterval);
+    document.getElementById("jackpotVersion").disabled=true;
     setTimeout(function(){
         document.getElementById("prizes").innerHTML="";
         document.getElementById("numberJackpot").style.display="none";
         document.getElementById("packetVersion").style.display="none";
         document.getElementById("jackpotVersion").style.display="none";
         document.getElementById("gameOver").style.display="block";
+        document.getElementById("jackpotVersion").disabled=false;
         let firstCounter=0;
         let secondCounter=0;
         let thirdCounter=0;
@@ -306,5 +341,5 @@ function endGame(){
             document.getElementById("totalPrizes").style.display="none";
             document.getElementById("no-prize-return").innerHTML="Unfortunately, you did not win any prizes.";
         }
-    },3000);
+    },1000);
 }

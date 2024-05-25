@@ -43,7 +43,7 @@
             h1,h2,h3,h4,h5,h6{
                 font-weight: 600;
             }
-            .nums{
+            .nums,.counters{
                 font-family: tahoma;
                 display: inline-block;
                 padding-left: 2rem;
@@ -53,6 +53,8 @@
                 background-color: #ECECEC;
                 margin: .2rem;
                 font-size: 5rem;
+                box-sizing: border-box;
+                width: fit-content;
                 text-align: center;
             }
             input[type="number"]{
@@ -124,13 +126,18 @@
                 <div id="notslotcharGroup">
                     <input type='button' value='Generate Not Slot' id='notslotJackpot-genNotSlot' style="display: none;"></input>
                 </div>
-                <div id="notslotprizenoticeGroup" style="display: none;">
+                <div id="notSlotPrizeNoticeGroup" style="display: none;">
                     <h4>So your specific winning combinations are:</h4>
-                    <ul id="notslotprizenoticeGroup-list"></ul>
+                    <ul id="notSlotPrizeNoticeGroup-list"></ul>
                     <input type="button" value="Start Game" id="startNotSlotGame">
                 </div>
-                <div id="spinnerGroup" style="display: none;">
-                    <h3>Get the winning groups mentioned before on the counter</h3>
+                <div id="slotGroup" style="display: none;">
+                    <h3>Get the winning combinations mentioned before on the counter</h3>
+                    <div>
+                        <div id="counter1" class="counters"></div>
+                        <div id="counter2" class="counters"></div>
+                        <div id="counter3" class="counters"></div>
+                    </div>
                 </div>
                 <div id="notslotJackpot-returnMessage"></div>
             </div>
@@ -146,8 +153,6 @@
                 <div id="numberJackpot-returnMessage"></div>
             </div>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.1.0/chartjs-plugin-datalabels.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
