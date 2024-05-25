@@ -252,10 +252,10 @@ function genNotSlotGroup(){
 function createSlotCombinations(){
     notSlotCharArray=notSlotCharArray.filter(function(char){
         return char!=undefined;
-    })
+    });
     let SpecificWinningGroups=document.getElementById("notSlotPrizeNoticeGroup-list");
     let FirstPrizeGroup="1<sup>st</sup> prize combinations are: ";
-    let ThirdPrizeGroup=`3<sup>rd</sup> prize combinations are the combinations mentioned above with 1 less same character. Such as ${notSlotCharArray[0]}|${notSlotCharArray[0]}|${notSlotCharArray[0]}|x`;
+    let ThirdPrizeGroup=`3<sup>rd</sup> prize combinations are the combinations mentioned above with 1 less same character. Such as ${notSlotCharArray[0]}|${notSlotCharArray[0]}|${notSlotCharArray[0]}|${notSlotCharArray[1]}`;
     for (let i=0;i<notSlotCharArray.length;i++){
         FirstPrizeGroup+=`${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]} `;
     }
@@ -271,13 +271,15 @@ function genNotSlotGame(){
     document.getElementById("counter1").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
     document.getElementById("counter2").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
     document.getElementById("counter3").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+    document.getElementById("counter4").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
     shuffleNotSlot();
 }
 function shuffleNotSlot(){
     if (stopSlotJackpot==false){
-        document.getElementById("counter1").textContent=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-        document.getElementById("counter2").textContent=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-        document.getElementById("counter3").textContent=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+        document.getElementById("counter1").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+        document.getElementById("counter2").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+        document.getElementById("counter3").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+        document.getElementById("counter4").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
         let secondarytimeoutRandomNumber=Math.random()*191;
         let timeoutNumber=(Math.random()*secondarytimeoutRandomNumber)+100;
         setTimeout(shuffleNotSlot,timeoutNumber);

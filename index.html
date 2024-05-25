@@ -17,6 +17,10 @@
                 font-family: eb-garamond;
                 src: url(EBGaramond-Regular.ttf);
             }
+            @font-face{
+                font-family: wenquanyi-mono;
+                src: url(Wen_Quan_Yi_Zen_Hei_Mono.ttf);
+            }
             #main-div{
                 margin: .5rem auto;
                 text-align: center;
@@ -43,18 +47,22 @@
             h1,h2,h3,h4,h5,h6{
                 font-weight: 600;
             }
-            .nums,.counters{
-                font-family: tahoma;
+            .nums{
+                font-family: wenquanyi-mono;
                 display: inline-block;
-                padding-left: 2rem;
-                padding-right: 2rem;
-                padding-top: 4rem;
-                padding-bottom: 4rem;
+                padding: 4rem 2rem;
                 background-color: #ECECEC;
                 margin: .2rem;
                 font-size: 5rem;
-                box-sizing: border-box;
-                width: fit-content;
+                text-align: center;
+            }
+            .counters{
+                font-family: wenquanyi-mono;
+                display: inline-block;
+                padding: 4rem 2rem;
+                background-color: #ECECEC;
+                margin: .2rem;
+                font-size: 5rem;
                 text-align: center;
             }
             input[type="number"]{
@@ -137,6 +145,7 @@
                         <div id="counter1" class="counters"></div>
                         <div id="counter2" class="counters"></div>
                         <div id="counter3" class="counters"></div>
+                        <div id="counter4" class="counters"></div>
                     </div>
                 </div>
                 <div id="notslotJackpot-returnMessage"></div>
