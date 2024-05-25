@@ -107,7 +107,6 @@ startNotSlotGameBtn.addEventListener("click",function(){
 });
 stopNotSlotBtn.addEventListener("click",function(){
     stopNotSlotBtn.disabled=true;
-    stopNotSlotJackpot=true;
     notSlotPrizeOutcomes();
 })
 function numberJackpot(){
@@ -234,8 +233,8 @@ function numberprizeOutcome(){
 function genNotSlotGroup(){
     let charEntryContainer=document.getElementById("notslotcharGroup");
     charNumberValue=Math.floor(charNumberValue);
-    if (charNumberValue<=3){
-        charNumberValue=3;
+    if (charNumberValue<=4){
+        charNumberValue=4;
     }
     else if (charNumberValue>=5){
         charNumberValue=5;
@@ -285,6 +284,7 @@ function genNotSlotGame(){
     }
 }
 function shuffleNormalNotSlot(){
+    console.log("SNNS");
     if (stopNotSlotJackpot==false){
         document.getElementById("counter1").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
         document.getElementById("counter2").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
@@ -294,6 +294,7 @@ function shuffleNormalNotSlot(){
     }
 }
 function shuffleNoJackpotNotSlot(){
+    console.log("SNJNS");
     if (stopNotSlotJackpot==false){
         let appearedChars=[];
         let shuffledChar1=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
@@ -321,6 +322,7 @@ function shuffleNoJackpotNotSlot(){
     }
 }
 function notSlotPrizeOutcomes(){
+    stopNotSlotJackpot=true;
     if (packetVersionValue>1){
         packetVersionValue--;
         if (allowedJackpots>0){
