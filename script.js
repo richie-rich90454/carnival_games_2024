@@ -332,7 +332,6 @@ function notSlotPrizeOutcomes(){
     if (packetVersionValue>1){
         packetVersionValue--;
         if (allowedJackpots>0){
-            allowedJackpots--;
             let userStoppedCounter=`${document.getElementById("counter1").innerHTML}${document.getElementById("counter2").innerHTML}${document.getElementById("counter3").innerHTML}${document.getElementById("counter4").innerHTML}`;
             let userStoppedCounterArray=userStoppedCounter.split("");
             let sameChars=0;
@@ -355,6 +354,11 @@ function notSlotPrizeOutcomes(){
                 allowedJackpots--;
             }
             else if (sameChars==3){
+                document.getElementById("notslotJackpot-returnMessage").innerHTML="Congratulations! You won the 2<sup>nd</sup> prize, which is $5!";
+                prizesArray.push("2");
+                allowedJackpots--;
+            }
+            else if (sameChars==2){
                 document.getElementById("notslotJackpot-returnMessage").innerHTML="Congratulations! You won the 3<sup>rd</sup> prize, which is $2!";
                 prizesArray.push("3");
                 allowedJackpots--;
