@@ -290,11 +290,11 @@ function shuffleNormalNotSlot(){
         document.getElementById("counter2").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
         document.getElementById("counter3").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
         document.getElementById("counter4").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-        setTimeout(shuffleNoJackpotNotSlot,200);
+        setTimeout(shuffleNormalNotSlot,200);
     }
 }
 function shuffleNoJackpotNotSlot(){
-    console.log("SNJNS");
+    // console.log("SNJNS");
     if (stopNotSlotJackpot==false){
         let appearedChars=[];
         let shuffledChar1=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
