@@ -63,11 +63,12 @@ stopNumberGroup.addEventListener("click",function(){
     numberprizeOutcome();
 });
 replayGame.addEventListener("click",function(){
-    document.getElementById("gameOver").style.display="none";
-    document.getElementById("fareVersion").style.display="block";
-    fareVersion.selectedIndex=0;
-    packetVersion.selectedIndex=0;
-    jackpotVersion.selectedIndex=0;
+    // document.getElementById("gameOver").style.display="none";
+    // document.getElementById("fareVersion").style.display="block";
+    // fareVersion.selectedIndex=0;
+    // packetVersion.selectedIndex=0;
+    // jackpotVersion.selectedIndex=0;
+    location.reload();
 });
 charNumber.addEventListener("keyup",function(event){
     if (event.key==="Enter"&&charNumber.value!=""){
@@ -284,7 +285,6 @@ function genNotSlotGame(){
     }
 }
 function shuffleNormalNotSlot(){
-    console.log("SNNS");
     if (stopNotSlotJackpot==false){
         document.getElementById("counter1").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
         document.getElementById("counter2").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
@@ -294,7 +294,6 @@ function shuffleNormalNotSlot(){
     }
 }
 function shuffleNoJackpotNotSlot(){
-    // console.log("SNJNS");
     if (stopNotSlotJackpot==false){
         let appearedChars=[];
         let shuffledChar1=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
