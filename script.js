@@ -82,7 +82,7 @@ genNotSlotBtn.addEventListener("click",function(){
     notSlotCharArray=[];
     let repeatingChars=0;
     for (let i=1;i<=charNumberValue;i++){
-        let charEntryValue=document.getElementById(`charEntry${i}`).value
+        let charEntryValue=document.getElementById(`charEntry${i}`).value.trim();
         if (charEntryValue==""){
             ischarBlank=true;
             break;
