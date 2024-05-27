@@ -7,16 +7,31 @@
             body{
                 word-wrap: break-word;
                 font-family: tahoma;
+                font-size: 16px;
+                padding: 0;
+                margin: 0;
             }
             #main-div{
-                margin: .5rem auto;
+                margin: 1rem auto;
                 text-align: center;
-                border-radius: .45rem;
+                border-radius: .5rem;
                 border: 3px solid #000;
                 background-color: #83B0BE;
                 width: 50%;
-                min-height: 45rem;
+                min-height: 40rem;
                 transition: box-shadow 0.5s;
+            }
+            h1{
+                font-size: 2rem;
+            }
+            h2{
+                font-size: 1.75rem;
+            }
+            h3{
+                font-size: 1.5rem;
+            }
+            h4{
+                font-size: 1.25rem;
             }
             select{
                 font-family: tahoma;
@@ -30,48 +45,43 @@
                 display: block;
                 margin: auto;
                 text-align: left;
-            }
-            h1,h2,h3,h4,h5,h6{
-                font-weight: 600;
+                font-family: tahoma;
             }
             .nums{
+                font-size: 2rem;
                 display: inline-block;
                 padding: 4rem 2rem;
                 background-color: #ECECEC;
                 margin: .2rem;
-                font-size: 5rem;
                 border-radius: .22rem;
                 text-align: center;
             }
             .counters{
                 display: inline-block;
-                padding: 4rem 2rem;
+                padding: 3rem 1rem;
                 background-color: #ECECEC;
-                font-size: 5rem;
                 width: 9rem;
+                height: 9rem;
+                line-height: 9rem;
                 border-radius: .22rem;
                 text-align: center;
+                font-size: 2rem;
             }
             input[type="number"]{
                 margin-top: 1rem;
                 width: 57%;
                 border: 1px solid #000;
-                border-radius: .223rem;
-                font-family: tahoma;
+                border-radius: .22rem;
                 text-align: left;
             }
             input[type="button"]{
                 background-color: #4CB9E5;
                 border: 1px solid #000;
                 border-radius: 5px;
-                font-family: tahoma;
-                font-size: 1rem;
                 margin-top: 1rem;
                 padding: .3rem;
             }
             ul{
-                font-family: tahoma;
-                font-size: 1.2rem;
                 text-align: center;
                 list-style-type: none;
             }
@@ -81,7 +91,7 @@
             }
             .charEnteryClass{
                 margin-top: 1rem;
-                border-radius: .223rem;
+                border-radius: .22rem;
                 border: 1px solid #000;
             }
         </style>
@@ -94,8 +104,8 @@
             <h1>The Animated Jackpot</h1>
             <div id="gameOver" style="display: none;">
                 <h2 id="gameOverMsg">GAME OVER</h2>
-                <h2 id="you-won" style="display: none;">You won:</h2>
-                <ul id="prizes" style="display: none;"></ul>
+                <h2 id="you-won" style="display: none">You won:</h2>
+                <ul id="prizes" style="display: none"></ul>
                 <p id="totalPrizes"></p>
                 <div id="no-prize-return"></div>
                 <input type="button" id="replay" value="Continue Playing">
