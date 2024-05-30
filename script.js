@@ -21,7 +21,7 @@ let allowedJackpots;
 let shiftingInterval;
 $(document).ready(function(){
     setInterval(function(){
-        $("#main-div").css("box-shadow",`6px 6px 6px 6px rgba(${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, .45)`);
+        $("#main-div").css("box-shadow",`6px 6px 6px 6px rgba(${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, .4)`);
     },500);
 });
 fareVersion.addEventListener("change",function(){
@@ -64,11 +64,6 @@ stopNumberGroup.addEventListener("click",function(){
     numberprizeOutcome();
 });
 replayGame.addEventListener("click",function(){
-    // document.getElementById("gameOver").style.display="none";
-    // document.getElementById("fareVersion").style.display="block";
-    // fareVersion.selectedIndex=0;
-    // packetVersion.selectedIndex=0;
-    // jackpotVersion.selectedIndex=0;
     location.reload();
 });
 charNumber.addEventListener("keyup",function(event){
@@ -208,7 +203,7 @@ function numberprizeOutcome(){
     else{
         let userStoppedIndex=parseInt(`${document.getElementById("num-hundreds").innerHTML}${document.getElementById("num-tens").innerHTML}${document.getElementById("num-ones").innerHTML}`);
         let actualJackpotNumber=randomNumberArray[0]*100+randomNumberArray[1]*10+randomNumberArray[2];
-        let timeoutNumber=Math.random*(Math.random()*91)+10;
+        let timeoutNumber=Math.random*(Math.random()*111)+50;
         shiftingInterval=setInterval(function(){
             if (userStoppedIndex<Math.floor(actualJackpotNumber-(actualJackpotNumber*0.01))||userStoppedIndex>Math.floor(actualJackpotNumber+actualJackpotNumber*0.01)){
                 clearInterval(shiftingInterval);
@@ -307,7 +302,7 @@ function shuffleNormalNotSlot(){
         document.getElementById("counter2").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
         document.getElementById("counter3").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
         document.getElementById("counter4").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-        setTimeout(shuffleNormalNotSlot,200);
+        setTimeout(shuffleNormalNotSlot,400);
     }
 }
 function shuffleNoJackpotNotSlot(){
@@ -334,20 +329,23 @@ function shuffleNoJackpotNotSlot(){
         document.getElementById("counter2").innerHTML=shuffledChar2;
         document.getElementById("counter3").innerHTML=shuffledChar3;
         document.getElementById("counter4").innerHTML=shuffledChar4;
-        setTimeout(shuffleNoJackpotNotSlot,200);
+        setTimeout(shuffleNoJackpotNotSlot,400);
     }
 }
 function notSlotPrizeOutcomes(){
     stopNotSlotJackpot=true;
         if (allowedJackpots>0){
             packetVersionValue--;
-            let userStoppedCounter=`${document.getElementById("counter1").innerHTML}${document.getElementById("counter2").innerHTML}${document.getElementById("counter3").innerHTML}${document.getElementById("counter4").innerHTML}`;
+            let userStoppedCounterArray=[]
+            for (let i=0;i<4;i++){
+                userStoppedCounterArray[i]=document.getElementById(`counter${i+1}`).innerHTML;
+            }
             let sameChars=0;
             for (let i=0;i<notSlotCharArray.length;i++){
                 let char=notSlotCharArray[i];
                 let charCount=0;
-                for (let j=0;j<userStoppedCounter.length;j++){
-                    if (char==userStoppedCounter[j]){
+                for (let j=0;j<userStoppedCounterArray.length;j++){
+                    if (char==userStoppedCounterArray[j]){
                         charCount++;
                     }
                 }
