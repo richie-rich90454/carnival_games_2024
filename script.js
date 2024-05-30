@@ -5,8 +5,10 @@ let stopNumberGroup=document.getElementById("stopNumberGroup");
 let replayGame=document.getElementById("replay");
 let charNumber=document.getElementById("notslotJackpot-charNumber");
 let genNotSlotBtn=document.getElementById("notslotJackpot-genNotSlot");
-let startNotSlotGameBtn=document.getElementById("startNotSlotGame");
+let startCustomNotSlotGameBtn=document.getElementById("startCustomNotSlotGame");
+let startSimpleNotSlotGameBtn=document.getElementById("startSimpleNotSlotGame");
 let stopNotSlotBtn=document.getElementById("stopNotSlot");
+let selectNotSlotMode=document.getElementById("selectNotSlotMode");
 let notSlotCharArray=[];
 let charNumberValue;
 let fareVersionValue=0;
@@ -103,13 +105,24 @@ genNotSlotBtn.addEventListener("click",function(){
         createSlotCombinations();
     }
 });
-startNotSlotGameBtn.addEventListener("click",function(){
+startCustomNotSlotGameBtn.addEventListener("click",function(){
     genNotSlotGame();
 });
 stopNotSlotBtn.addEventListener("click",function(){
     stopNotSlotBtn.disabled=true;
     notSlotPrizeOutcomes();
-})
+});
+selectNotSlotMode.addEventListener("change",function(){
+    selectNotSlotMode.style.display="none";
+    if (selectNotSlotMode.options[selectNotSlotMode.selectedIndex].value=="custom"){
+        document.getElementById("notslotJackpot-customMode").style.display="block";
+        document.getElementById("notslotJackpot-simpleMode").style.display="none";
+    }
+    else{
+        document.getElementById("notslotJackpot-customMode").style.display="none";
+        document.getElementById("notslotJackpot-simpleMode").style.display="block";
+    }
+});
 function numberJackpot(){
     stopNumJackpot=false;
     stopNumberGroup.disabled=false;
