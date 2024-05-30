@@ -57,11 +57,11 @@
                 line-height: 9rem;
                 border-radius: .35rem;
                 text-align: center;
-                font-size: 2rem;
+                font-size: 3rem;
             }
             input[type="number"]{
                 margin-top: 1rem;
-                width: 70%;
+                width: 73%;
                 border: 1px solid #000;
                 border-radius: .22rem;
                 text-align: left;
@@ -123,19 +123,18 @@
             </select>
             <div id="notslotJackpot" style="display: none;">
                 <select id="selectNotSlotMode" style="margin-top: 1rem;">
-                    <option value="" disabled selected>Select which mode you want</option>
+                    <option value="" disabled selected>Select the mode you want</option>
                     <option value="custom">Custom Mode (more customizable)</option>
                     <option value="simple">Simple Mode (more simple)</option>
                 </select>
                 <div id="notslotJackpot-customMode" style="display: none;">
-                    <input type="number" min="4" max="5" id="notslotJackpot-charNumber" placeholder="Enter the amount of characters you want in the slots (4-5)">
+                    <input type="number" min="4" max="5" id="notslotJackpot-charNumber" placeholder="Enter the amount of characters you want to include in the slots (4-5)">
                     <div id="notslotcharGroup">
                         <input type='button' value='Generate Not Slot' id='notslotJackpot-genNotSlot' style="display: none;"></input>
                     </div>
                     <div id="notSlotPrizeNoticeGroup" style="display: none;">
                         <h4>So your specific winning combinations are:</h4>
                         <ul id="notSlotPrizeNoticeGroup-list"></ul>
-                        <input type="button" value="Start Game" id="startCustomNotSlotGame">
                     </div>
                 </div>
                 <div id="notslotJackpot-simpleMode" style="display: none;">
@@ -145,8 +144,8 @@
                         <p>2<sup>nd</sup> prize: three repititions, such as 🍕|🍕|🍕|🍔</p>
                         <p>3<sup>rd</sup> prize: two repititions, such as 🍕|🍕|🍟|🍔</p>
                     </div>
-                    <input type="button" value="Start Game" id="startSimpleNotSlotGame">
                 </div>
+                <input type="button" value="Start Game" id="startNotSlotGame" style="display: none;">
                 <div id="slotGroup" style="display: none;">
                     <h3>GET THE WINNING COMBINATIONS MENTIONED BEFORE ON THE COUNTER</h3>
                     <div>

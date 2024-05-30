@@ -5,8 +5,7 @@ let stopNumberGroup=document.getElementById("stopNumberGroup");
 let replayGame=document.getElementById("replay");
 let charNumber=document.getElementById("notslotJackpot-charNumber");
 let genNotSlotBtn=document.getElementById("notslotJackpot-genNotSlot");
-let startCustomNotSlotGameBtn=document.getElementById("startCustomNotSlotGame");
-let startSimpleNotSlotGameBtn=document.getElementById("startSimpleNotSlotGame");
+let startNotSlotGameBtn=document.getElementById("startNotSlotGame");
 let stopNotSlotBtn=document.getElementById("stopNotSlot");
 let selectNotSlotMode=document.getElementById("selectNotSlotMode");
 let notSlotCharArray=[];
@@ -105,7 +104,8 @@ genNotSlotBtn.addEventListener("click",function(){
         createSlotCombinations();
     }
 });
-startCustomNotSlotGameBtn.addEventListener("click",function(){
+startNotSlotGameBtn.addEventListener("click",function(){
+    document.getElementById("notslotJackpot-simpleMode").style.display="none";
     genNotSlotGame();
 });
 stopNotSlotBtn.addEventListener("click",function(){
@@ -122,6 +122,7 @@ selectNotSlotMode.addEventListener("change",function(){
         notSlotCharArray=["🍕","🍔","🍟","🌭"];
         document.getElementById("notslotJackpot-customMode").style.display="none";
         document.getElementById("notslotJackpot-simpleMode").style.display="block";
+        startNotSlotGameBtn.style.display="block";
     }
 });
 function numberJackpot(){
@@ -280,8 +281,10 @@ function createSlotCombinations(){
     $("<li>").html(ThirdPrizeGroup).hide().appendTo(SpecificWinningGroups).fadeIn(1000);
     document.getElementById("notslotcharGroup").style.display="none";
     document.getElementById("notSlotPrizeNoticeGroup").style.display="block";
+    startNotSlotGameBtn.style.display="block";
 }
 function genNotSlotGame(){
+    startNotSlotGameBtn.style.display="none";
     stopNotSlotBtn.disabled=false;
     document.getElementById("notslotJackpot-returnMessage").innerHTML="";
     stopNotSlotJackpot=false;
@@ -339,13 +342,12 @@ function notSlotPrizeOutcomes(){
         if (allowedJackpots>0){
             packetVersionValue--;
             let userStoppedCounter=`${document.getElementById("counter1").innerHTML}${document.getElementById("counter2").innerHTML}${document.getElementById("counter3").innerHTML}${document.getElementById("counter4").innerHTML}`;
-            let userStoppedCounterArray=userStoppedCounter.split("");
             let sameChars=0;
             for (let i=0;i<notSlotCharArray.length;i++){
                 let char=notSlotCharArray[i];
                 let charCount=0;
-                for (let j=0;j<userStoppedCounterArray.length;j++){
-                    if (char==userStoppedCounterArray[j]){
+                for (let j=0;j<userStoppedCounter.length;j++){
+                    if (char==userStoppedCounter[j]){
                         charCount++;
                     }
                 }
@@ -353,6 +355,7 @@ function notSlotPrizeOutcomes(){
                     sameChars=charCount;
                 }
             }
+            // console.log(sameChars);
             if (sameChars==4){
                 document.getElementById("notslotJackpot-returnMessage").innerHTML="Congratulations! You won the 1<sup>st</sup> prize, which is $10!";
                 prizesArray.push("1");
