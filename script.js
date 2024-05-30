@@ -119,6 +119,7 @@ selectNotSlotMode.addEventListener("change",function(){
         document.getElementById("notslotJackpot-simpleMode").style.display="none";
     }
     else{
+        notSlotCharArray=["🍕","🍔","🍟","🌭"];
         document.getElementById("notslotJackpot-customMode").style.display="none";
         document.getElementById("notslotJackpot-simpleMode").style.display="block";
     }
