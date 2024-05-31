@@ -270,11 +270,13 @@ function createSlotCombinations(){
     });
     let SpecificWinningGroups=document.getElementById("notSlotPrizeNoticeGroup-list");
     let FirstPrizeGroup="1<sup>st</sup> prize combinations are: ";
-    let ThirdPrizeGroup=`3<sup>rd</sup> prize combinations are the combinations mentioned above with 1 less same character. Such as ${notSlotCharArray[0]}|${notSlotCharArray[0]}|${notSlotCharArray[0]}|${notSlotCharArray[1]}`;
+    let secondPrizeGroup=`2<sup>nd</sup> prize combinations are the combinations mentioned above with 1 less same character. Such as ${notSlotCharArray[0]}|${notSlotCharArray[0]}|${notSlotCharArray[0]}|${notSlotCharArray[1]}`;
+    let ThirdPrizeGroup=`3<sup>rd</sup> prize combinations are the combinations mentioned above with 2 different characters. Such as ${notSlotCharArray[0]}|${notSlotCharArray[0]}|${notSlotCharArray[1]}|${notSlotCharArray[3]}`;
     for (let i=0;i<notSlotCharArray.length;i++){
         FirstPrizeGroup+=`${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]} `;
     }
     $("<li>").html(FirstPrizeGroup).hide().appendTo(SpecificWinningGroups).fadeIn(1000);
+    $("<li>").html(secondPrizeGroup).hide().appendTo(SpecificWinningGroups).fadeIn(1000);
     $("<li>").html(ThirdPrizeGroup).hide().appendTo(SpecificWinningGroups).fadeIn(1000);
     document.getElementById("notslotcharGroup").style.display="none";
     document.getElementById("notSlotPrizeNoticeGroup").style.display="block";
