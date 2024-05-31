@@ -59,6 +59,7 @@ jackpotVersion.addEventListener("change",function(){
     }
 });
 stopNumberGroup.addEventListener("click",function(){
+    document.getElementById("play-stop-audio").play();
     stopNumJackpot=true;
     stopNumberGroup.disabled=true;
     numberprizeOutcome();
@@ -105,6 +106,7 @@ startNotSlotGameBtn.addEventListener("click",function(){
 });
 stopNotSlotBtn.addEventListener("click",function(){
     stopNotSlotBtn.disabled=true;
+    document.getElementById("play-stop-audio").play();
     notSlotPrizeOutcomes();
 });
 selectNotSlotMode.addEventListener("change",function(){
