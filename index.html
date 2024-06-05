@@ -58,7 +58,7 @@
             }
             input[type="number"]{
                 margin-top: 1rem;
-                width: 71%;
+                width: 72%;
                 border: 1px solid #000;
                 border-radius: .22rem;
                 text-align: left;
@@ -124,12 +124,13 @@
             <div id="notslotJackpot" style="display: none;">
                 <select id="selectNotSlotMode" style="margin-top: 1rem;">
                     <option value="" disabled selected>Select the mode you want</option>
-                    <option value="custom">Custom Mode (more customizable)</option>
-                    <option value="simple">Simple Mode (more simple)</option>
+                    <option value="custom">Custom Character Mode (more customizable)</option>
+                    <option value="simple">Simple Emoji Mode (more simple)</option>
                 </select>
                 <div id="notslotJackpot-customMode" style="display: none;">
                     <input type="number" min="4" max="5" id="notslotJackpot-charNumber" placeholder="Enter the amount of characters you want to include in the slots (4-5)">
-                    <div id="notslotcharGroup">
+                    <div id="notSlotCharGroup">
+                        <div id="notSlotChars"></div>
                         <input type='button' value='Generate Not Slot' id='notslotJackpot-genNotSlot' style="display: none;"></input>
                     </div>
                     <div id="notSlotPrizeNoticeGroup" style="display: none;">
@@ -154,6 +155,9 @@
                         <div id="counter3" class="counters"></div>
                         <div id="counter4" class="counters"></div>
                         <input type="button" id="stopNotSlot" value="STOP COUNTER">
+                    </div>
+                    <div>
+                        <input type="button" id="resetNotSlot" value="Reset Game">
                     </div>
                 </div>
                 <div id="notslotJackpot-returnMessage"></div>

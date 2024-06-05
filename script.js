@@ -8,6 +8,7 @@ let genNotSlotBtn=document.getElementById("notslotJackpot-genNotSlot");
 let startNotSlotGameBtn=document.getElementById("startNotSlotGame");
 let stopNotSlotBtn=document.getElementById("stopNotSlot");
 let selectNotSlotMode=document.getElementById("selectNotSlotMode");
+let resetNotSlot=document.getElementById("resetNotSlot");
 let notSlotCharArray=[];
 let charNumberValue;
 let fareVersionValue=0;
@@ -95,7 +96,7 @@ genNotSlotBtn.addEventListener("click",function(){
             notSlotCharArray[i-1]=charEntryValue;
         }
     }
-    if (ischarBlank==false&&charNumberValue-repeatingChars>=3){
+    if (ischarBlank==false&&charNumberValue-repeatingChars>=4){
         charNumber.value="";
         createSlotCombinations();
     }
@@ -106,12 +107,14 @@ startNotSlotGameBtn.addEventListener("click",function(){
 });
 stopNotSlotBtn.addEventListener("click",function(){
     stopNotSlotBtn.disabled=true;
+    resetNotSlot.disabled=true;
     document.getElementById("play-stop-audio").play();
     notSlotPrizeOutcomes();
 });
 selectNotSlotMode.addEventListener("change",function(){
     selectNotSlotMode.style.display="none";
     if (selectNotSlotMode.options[selectNotSlotMode.selectedIndex].value=="custom"){
+        document.getElementById("notslotJackpot-charNumber").style.display="block";
         document.getElementById("notslotJackpot-customMode").style.display="block";
         document.getElementById("notslotJackpot-simpleMode").style.display="none";
     }
@@ -122,6 +125,7 @@ selectNotSlotMode.addEventListener("change",function(){
         startNotSlotGameBtn.style.display="block";
     }
 });
+resetNotSlot.addEventListener("click",resetNotSlotGame);
 function numberJackpot(){
     stopNumJackpot=false;
     stopNumberGroup.disabled=false;
@@ -244,7 +248,8 @@ function numberprizeOutcome(){
     }
 }
 function genNotSlotGroup(){
-    let charEntryContainer=document.getElementById("notslotcharGroup");
+    document.getElementById("notSlotCharGroup").style.display="block";
+    let charEntryContainer=document.getElementById("notSlotChars");
     charNumberValue=Math.floor(charNumberValue);
     if (charNumberValue<=4){
         charNumberValue=4;
@@ -269,6 +274,7 @@ function createSlotCombinations(){
         return char!=undefined;
     });
     let SpecificWinningGroups=document.getElementById("notSlotPrizeNoticeGroup-list");
+    SpecificWinningGroups.innerHTML="";
     let FirstPrizeGroup="1<sup>st</sup> prize combinations are: ";
     let secondPrizeGroup=`2<sup>nd</sup> prize combinations are the combinations mentioned above with 1 less same character. Such as ${notSlotCharArray[0]}|${notSlotCharArray[2]}|${notSlotCharArray[0]}|${notSlotCharArray[0]}`;
     let ThirdPrizeGroup=`3<sup>rd</sup> prize combinations are the combinations mentioned above with 2 different characters. Such as ${notSlotCharArray[1]}|${notSlotCharArray[0]}|${notSlotCharArray[1]}|${notSlotCharArray[3]}`;
@@ -278,27 +284,29 @@ function createSlotCombinations(){
     $("<li>").html(FirstPrizeGroup).hide().appendTo(SpecificWinningGroups).fadeIn(1000);
     $("<li>").html(secondPrizeGroup).hide().appendTo(SpecificWinningGroups).fadeIn(1000);
     $("<li>").html(ThirdPrizeGroup).hide().appendTo(SpecificWinningGroups).fadeIn(1000);
-    document.getElementById("notslotcharGroup").style.display="none";
+    document.getElementById("notSlotCharGroup").style.display="none";
     document.getElementById("notSlotPrizeNoticeGroup").style.display="block";
     startNotSlotGameBtn.style.display="block";
 }
 function genNotSlotGame(){
     startNotSlotGameBtn.style.display="none";
     stopNotSlotBtn.disabled=false;
+    resetNotSlot.disabled=false;
     document.getElementById("notslotJackpot-returnMessage").innerHTML="";
     stopNotSlotJackpot=false;
+    resetNotSlot.style.display="block";
     document.getElementById("slotGroup").style.display="block";
     document.getElementById("notSlotPrizeNoticeGroup").style.display="none";
     document.getElementById("counter1").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
     document.getElementById("counter2").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
     document.getElementById("counter3").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
     document.getElementById("counter4").innerHTML=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-    if (allowedJackpots>0){
+    // if (allowedJackpots>0){
         shuffleNormalNotSlot();
-    }
-    else{
-        shuffleNoJackpotNotSlot();
-    }
+    // }
+    // else{
+    //     shuffleNoJackpotNotSlot();
+    // }
 }
 function shuffleNormalNotSlot(){
     if (stopNotSlotJackpot==false){
@@ -309,33 +317,33 @@ function shuffleNormalNotSlot(){
         setTimeout(shuffleNormalNotSlot,400);
     }
 }
-function shuffleNoJackpotNotSlot(){
-    if (stopNotSlotJackpot==false){
-        let appearedChars=[];
-        let shuffledChar1=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-        appearedChars.push(shuffledChar1);
-        let shuffledChar2=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-        while (appearedChars.includes(shuffledChar2)==true){
-            shuffledChar2=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-        }
-        appearedChars.push(shuffledChar2);
-        let shuffledChar3=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-        while (appearedChars.includes(shuffledChar3)==true){
-            shuffledChar3=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-        }
-        appearedChars.push(shuffledChar3);
-        let shuffledChar4=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-        while (appearedChars.includes(shuffledChar4)==true){
-            shuffledChar4=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-        }
-        appearedChars.push(shuffledChar4);
-        document.getElementById("counter1").innerHTML=shuffledChar1;
-        document.getElementById("counter2").innerHTML=shuffledChar2;
-        document.getElementById("counter3").innerHTML=shuffledChar3;
-        document.getElementById("counter4").innerHTML=shuffledChar4;
-        setTimeout(shuffleNoJackpotNotSlot,400);
-    }
-}
+// function shuffleNoJackpotNotSlot(){
+//     if (stopNotSlotJackpot==false){
+//         let appearedChars=[];
+//         let shuffledChar1=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+//         appearedChars.push(shuffledChar1);
+//         let shuffledChar2=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+//         while (appearedChars.includes(shuffledChar2)==true){
+//             shuffledChar2=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+//         }
+//         appearedChars.push(shuffledChar2);
+//         let shuffledChar3=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+//         while (appearedChars.includes(shuffledChar3)==true){
+//             shuffledChar3=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+//         }
+//         appearedChars.push(shuffledChar3);
+//         let shuffledChar4=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+//         while (appearedChars.includes(shuffledChar4)==true){
+//             shuffledChar4=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+//         }
+//         appearedChars.push(shuffledChar4);
+//         document.getElementById("counter1").innerHTML=shuffledChar1;
+//         document.getElementById("counter2").innerHTML=shuffledChar2;
+//         document.getElementById("counter3").innerHTML=shuffledChar3;
+//         document.getElementById("counter4").innerHTML=shuffledChar4;
+//         setTimeout(shuffleNoJackpotNotSlot,400);
+//     }
+// }
 function notSlotPrizeOutcomes(){
     stopNotSlotJackpot=true;
         if (allowedJackpots>0){
@@ -357,7 +365,6 @@ function notSlotPrizeOutcomes(){
                     sameChars=charCount;
                 }
             }
-            // console.log(sameChars);
             if (sameChars==4){
                 document.getElementById("notslotJackpot-returnMessage").innerHTML="Congratulations! You won the 1<sup>st</sup> prize, which is $10!";
                 prizesArray.push("1");
@@ -383,35 +390,46 @@ function notSlotPrizeOutcomes(){
         }
         else{
             packetVersionValue--;
-            let appearedChars=[];
-            let shuffledChar1=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-            appearedChars.push(shuffledChar1);
-            let shuffledChar2=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-            while (appearedChars.includes(shuffledChar2)==true){
-                shuffledChar2=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-            }
-            appearedChars.push(shuffledChar2);
-            let shuffledChar3=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-            while (appearedChars.includes(shuffledChar3)==true){
-                shuffledChar3=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-            }
-            appearedChars.push(shuffledChar3);
-            let shuffledChar4=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-            while (appearedChars.includes(shuffledChar4)==true){
-                shuffledChar4=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
-            }
-            appearedChars.push(shuffledChar4);
-            document.getElementById("counter1").innerHTML=shuffledChar1;
-            document.getElementById("counter2").innerHTML=shuffledChar2;
-            document.getElementById("counter3").innerHTML=shuffledChar3;
-            document.getElementById("counter4").innerHTML=shuffledChar4;
-            document.getElementById("notslotJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
+            setTimeout(function(){
+                let appearedChars=[];
+                let shuffledChar1=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+                appearedChars.push(shuffledChar1);
+                let shuffledChar2=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+                while (appearedChars.includes(shuffledChar2)==true){
+                    shuffledChar2=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+                }
+                appearedChars.push(shuffledChar2);
+                let shuffledChar3=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+                while (appearedChars.includes(shuffledChar3)==true){
+                    shuffledChar3=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+                }
+                appearedChars.push(shuffledChar3);
+                let shuffledChar4=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+                while (appearedChars.includes(shuffledChar4)==true){
+                    shuffledChar4=notSlotCharArray[Math.floor(Math.random()*notSlotCharArray.length)];
+                }
+                appearedChars.push(shuffledChar4);
+                document.getElementById("counter1").innerHTML=shuffledChar1;
+                document.getElementById("counter2").innerHTML=shuffledChar2;
+                document.getElementById("counter3").innerHTML=shuffledChar3;
+                document.getElementById("counter4").innerHTML=shuffledChar4;
+                document.getElementById("notslotJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
+            },50);
             if (packetVersionValue==1){
                 setTimeout(endGame,1000);
                 return;
             }   
         }
         setTimeout(genNotSlotGame,1000);
+}
+function resetNotSlotGame(){
+    notSlotCharArray=[];
+    stopNotSlotJackpot=true;
+    document.getElementById("slotGroup").style.display="none";
+    document.getElementById("resetNotSlot").style.display="none";
+    document.getElementById("notSlotChars").innerHTML="";
+    selectNotSlotMode.style.display="block";
+    selectNotSlotMode.selectedIndex=0;
 }
 function endGame(){
     clearInterval(shiftingInterval);
