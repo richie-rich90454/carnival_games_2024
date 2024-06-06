@@ -204,8 +204,7 @@ function numberprizeOutcome(){
                 endGame();
             }
         }
-        console.log(document.getElementById("numberJackpot-returnMessage").innerHTML);
-        setTimeout(numberJackpot,2500);
+        setTimeout(numberJackpot,2000);
         packetVersionValue--;
     }
     else{
@@ -219,7 +218,7 @@ function numberprizeOutcome(){
                 clearInterval(shiftingInterval);
                 document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
                 if (packetVersionValue>1){
-                    setTimeout(numberJackpot,2500);
+                    setTimeout(numberJackpot,2000);
                 }
                 if (packetVersionValue==1){
                     setTimeout(endGame,500);
