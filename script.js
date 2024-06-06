@@ -502,7 +502,12 @@ function endGame(){
             document.getElementById("totalPrizes").style.display="none";
             document.getElementById("play-end-audio").play();
             document.getElementById("totalPrizes").innerHTML=`The total amount of tokens you gained is ${totalCounter}`;
-                setTimeout(function(){$("#totalPrizes").fadeIn(1000)
+            setTimeout(function(){
+                $("#totalPrizes").fadeIn(1000);
+                let speech=new SpeechSynthesisUtterance(`The total amount of tokens you gained is ${totalCounter}`);
+                speech.rate=1;
+                speech.lang="en";
+                speechSynth.speak(speech);
             },1000);
         }
         else{
