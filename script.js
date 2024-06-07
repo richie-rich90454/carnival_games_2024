@@ -464,7 +464,17 @@ function endGame(){
             }
             document.getElementById("totalPrizes").style.display="none";
             document.getElementById("play-end-audio").play();
-            document.getElementById("totalPrizes").innerHTML=`The total amount of tokens you gained is ${totalCounter}`;
+            let candy=Math.floor(totalCounter/5);
+            if (candy==1){
+                candy="You get 1 candy!";
+            }
+            else if (candy==0){
+                candy="Unfortunatly, you did not get any candy (5 tokens=1 candy)."
+            }
+            else if (candy>1){
+                candy=`You get ${Math.floor(totalCounter/5)} candies!`;
+            }
+            document.getElementById("totalPrizes").innerHTML=`The total amount of tokens you gained is ${totalCounter}. ${candy}`;
             setTimeout(function(){
                 $("#totalPrizes").fadeIn(1000);
                 let speech=new SpeechSynthesisUtterance(`The total amount of tokens you gained is ${totalCounter}`);
