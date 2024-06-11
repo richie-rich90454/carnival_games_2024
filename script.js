@@ -473,7 +473,7 @@ function endGame(){
                 candy="You get 1 candy!";
             }
             else if (candy==0){
-                candy="Unfortunatly, you did not get any candy (5 tokens=1 candy)."
+                candy="Unfortunately, you did not get any candy (5 tokens=1 candy)."
             }
             else if (candy>1){
                 candy=`You get ${Math.floor(totalCounter/5)} candies!`;
