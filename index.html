@@ -58,7 +58,7 @@
             }
             input[type="number"]{
                 margin-top: 1rem;
-                width: 72%;
+                width: 75%;
                 border: 1px solid #000;
                 border-radius: .22rem;
                 text-align: left;
@@ -106,41 +106,42 @@
                 <input type="button" id="replay" value="Continue Playing">
             </div>
             <select id="fareVersion">
-                <option value="" disabled selected>Which game value did you choose?</option>
+                <option value="" disabled selected>Game value?</option>
                 <option value="1">$1</option>
                 <option value="2">$2</option>
             </select>
             <select id="packetVersion" style="display: none;">
-                <option value="" disabled selected>Which packet did you choose?</option>
+                <option value="" disabled selected>Game packet?</option>
                 <option value="6">5</option>
                 <option value="11">10</option>
                 <option value="21">20</option>
             </select>
             <select id="jackpotVersion" style="display: none;">
-                <option value="" disabled selected>Please select a Jackpot game you want to play</option>
+                <option value="" disabled selected>Game you want to play</option>
                 <option value="notslot">Not Slot Mode</option>
                 <option value="number">Number Mode</option>
             </select>
             <div id="notslotJackpot" style="display: none;">
                 <select id="selectNotSlotMode" style="margin-top: 1rem;">
-                    <option value="" disabled selected>Select the mode you want</option>
-                    <option value="custom">Custom Character Mode (more customizable)</option>
-                    <option value="simple">Simple Emoji Mode (more simple)</option>
+                    <option value="" disabled selected>Mode</option>
+                    <option value="custom">Character (more customizable)</option>
+                    <option value="simple">Emoji (more simple)</option>
                 </select>
                 <div id="notslotJackpot-customMode" style="display: none;">
-                    <input type="number" min="4" max="5" id="notslotJackpot-charNumber" placeholder="Enter the amount of characters you want to include in the slots (4-5)">
+                    <input type="number" min="4" max="5" id="notslotJackpot-charNumber" placeholder="Enter the amount of characters you want to include. Hit 'Enter' to submit">
                     <div id="notSlotCharGroup">
                         <div id="notSlotChars"></div>
                         <input type='button' value='Generate Not Slot' id='notslotJackpot-genNotSlot' style="display: none;"></input>
+                        <p id="notSlotCharGroup-errorMsg" style="display: none;">Needs to be atlest 4 non-repeating characters</p>
                     </div>
                     <div id="notSlotPrizeNoticeGroup" style="display: none;">
-                        <h4>So your specific winning combinations are:</h4>
+                        <h4>Winnning Combinations:</h4>
                         <ul id="notSlotPrizeNoticeGroup-list"></ul>
                     </div>
                 </div>
                 <div id="notslotJackpot-simpleMode" style="display: none;">
                     <div>
-                        <h4>Your winning combinations are:</h4>
+                        <h4>Winning Combinations:</h4>
                         <p>1<sup>st</sup> prize: 🍕|🍕|🍕|🍕, 🍔|🍔|🍔|🍔, 🍟|🍟|🍟|🍟, 🌭|🌭|🌭|🌭</p>
                         <p>2<sup>nd</sup> prize: three repititions, such as 🍕|🍔|🍕|🍕</p>
                         <p>3<sup>rd</sup> prize: two repititions, such as 🍕|🍟|🍕|🍔</p>
@@ -148,7 +149,7 @@
                 </div>
                 <input type="button" value="Start Game" id="startNotSlotGame" style="display: none;">
                 <div id="slotGroup" style="display: none;">
-                    <h3>GET THE WINNING COMBINATIONS MENTIONED BEFORE ON THE COUNTER</h3>
+                    <h3>GET THE WINNING COMBINATIONS ON THE COUNTER</h3>
                     <div>
                         <div id="counter1" class="counters"></div>
                         <div id="counter2" class="counters"></div>

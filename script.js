@@ -77,6 +77,7 @@ charNumber.addEventListener("keyup",function(event){
     }
 });
 genNotSlotBtn.addEventListener("click",function(){
+    document.getElementById("notSlotCharGroup-errorMsg").style.display="none";
     let ischarBlank=false;
     notSlotCharArray=[];
     let repeatingChars=0;
@@ -100,6 +101,9 @@ genNotSlotBtn.addEventListener("click",function(){
     if (ischarBlank==false&&charNumberValue-repeatingChars>=4){
         charNumber.value="";
         createSlotCombinations();
+    }
+    else{
+        document.getElementById("notSlotCharGroup-errorMsg").style.display="block";
     }
 });
 startNotSlotGameBtn.addEventListener("click",function(){
@@ -175,7 +179,7 @@ function numberprizeOutcome(){
                 allowedJackpots--;
             }
             else{
-                document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
+                document.getElementById("numberJackpot-returnMessage").innerHTML="Nothing!";
             }
             if (packetVersionValue==1){
                 endGame();
@@ -198,7 +202,7 @@ function numberprizeOutcome(){
                 }
             }
             else{
-                document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
+                document.getElementById("numberJackpot-returnMessage").innerHTML="Nothing!";
             }
             if (packetVersionValue==1){
                 endGame();
@@ -216,7 +220,7 @@ function numberprizeOutcome(){
         shiftingInterval=setInterval(function(){
             if (userStoppedIndex<Math.floor(actualJackpotNumber-(actualJackpotNumber*0.01))||userStoppedIndex>Math.floor(actualJackpotNumber+actualJackpotNumber*0.01)){
                 clearInterval(shiftingInterval);
-                document.getElementById("numberJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
+                document.getElementById("numberJackpot-returnMessage").innerHTML="Nothing!";
                 if (packetVersionValue>1){
                     setTimeout(numberJackpot,2000);
                 }
@@ -279,9 +283,9 @@ function createSlotCombinations(){
     });
     let SpecificWinningGroups=document.getElementById("notSlotPrizeNoticeGroup-list");
     SpecificWinningGroups.innerHTML="";
-    let FirstPrizeGroup="1<sup>st</sup> prize combinations are: ";
-    let secondPrizeGroup=`2<sup>nd</sup> prize combinations are the combinations mentioned above with 1 less same character. Such as ${notSlotCharArray[0]}|${notSlotCharArray[2]}|${notSlotCharArray[0]}|${notSlotCharArray[0]}`;
-    let ThirdPrizeGroup=`3<sup>rd</sup> prize combinations are the combinations mentioned above with 2 different characters. Such as ${notSlotCharArray[1]}|${notSlotCharArray[0]}|${notSlotCharArray[1]}|${notSlotCharArray[3]}`;
+    let FirstPrizeGroup="1<sup>st</sup> prize: ";
+    let secondPrizeGroup=`2<sup>nd</sup> prize: three repititions, such as ${notSlotCharArray[0]}|${notSlotCharArray[2]}|${notSlotCharArray[0]}|${notSlotCharArray[0]}`;
+    let ThirdPrizeGroup=`3<sup>rd</sup> prize: two repititions, such as ${notSlotCharArray[1]}|${notSlotCharArray[0]}|${notSlotCharArray[1]}|${notSlotCharArray[3]}`;
     for (let i=0;i<notSlotCharArray.length;i++){
         FirstPrizeGroup+=`${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]}|${notSlotCharArray[i]} `;
     }
@@ -353,7 +357,7 @@ function notSlotPrizeOutcomes(){
             allowedJackpots--;
         }
         else{
-            document.getElementById("notslotJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
+            document.getElementById("notslotJackpot-returnMessage").innerHTML="Nothing";
         }
         if (packetVersionValue==1){
             setTimeout(endGame,1000);
@@ -385,7 +389,7 @@ function notSlotPrizeOutcomes(){
             document.getElementById("counter2").innerHTML=shuffledChar2;
             document.getElementById("counter3").innerHTML=shuffledChar3;
             document.getElementById("counter4").innerHTML=shuffledChar4;
-            document.getElementById("notslotJackpot-returnMessage").innerHTML="Unfortunately, you did not win any prizes.";
+            document.getElementById("notslotJackpot-returnMessage").innerHTML="Nothing!";
         },50);
         if (packetVersionValue==1){
             setTimeout(function(){
