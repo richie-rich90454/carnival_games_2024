@@ -492,6 +492,8 @@ function endGame(){
             document.getElementById("prizes").style.display="none";
             document.getElementById("totalPrizes").style.display="none";
             document.getElementById("no-prize-return").innerHTML="Unfortunately, you did not win any prizes.";
+            document.getElementById("numberJackpot").style.display="";
+            document.getElementById("notslotJackpot").style.display="";
         }
     },1000);
 }
